@@ -1,2 +1,3 @@
+-set-up libraries: react-hook-form redux react-redux @reduxjs/toolkit react-router-dom
 -set-up store
 -config routes
