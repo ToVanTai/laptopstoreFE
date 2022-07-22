@@ -1,0 +1,2 @@
+-set-up store
+-config routes
