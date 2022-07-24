@@ -6,9 +6,11 @@
 /user/carts
 /user/purchased
 🤣 home
-/home?page=?sort-by=?limit
-🤣 search
-/search?type=?value=?page=?limit=?sort_by=
+/?page=?sort-by=?limit
+🤣 product-detail
+/product-detail
+🤣 products
+/products
 ================================================
 😎 admin
 /admin
