@@ -1,0 +1,19 @@
+@use "../../abstracts/" as *;
+@forward  "../../components/container";
+@forward  "../../components/footer";
+@forward "../../components/navbar";
+@forward "../../components/sidebar";
+@forward "../../components/overlay";
+.home__slider{
+    width: calc(100vw - $sidebar-width );
+    height: calc((100vw - $sidebar-width) /2);
+    @include mobile{
+        width: 100vw;
+        height: calc(100vw /2);
+    }
+    @include tablet{
+        width: 100vw;
+        height: calc(100vw /2);
+    }
+    background-color: red;
+}

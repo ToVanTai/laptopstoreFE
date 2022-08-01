@@ -1,10 +1,10 @@
-// import filtersSlice from "../components/Filters/filtersSlice"
-// import todoListSlice from "../components/TodoList/todoListSlice"
+import overlaySlice from "../components/OverlaySlice"
+import sideBarSlice from "../components/SidebarSlice"
 import { configureStore } from "@reduxjs/toolkit"
 const store = configureStore({
-    reducer:{
-        // "filters":filtersSlice.reducer,
-        // "todoList": todoListSlice.reducer
+    reducer : {
+        sideBar: sideBarSlice.reducer,
+        overlay: overlaySlice.reducer
     }
 })
-export default store
+export default store;

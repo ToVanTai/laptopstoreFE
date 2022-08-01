@@ -4,15 +4,15 @@ import "./css/base/grid.css";
 import "./css/base/reset.css";
 import reportWebVitals from './reportWebVitals';
 import "./access/fonts/boxicons-2.0.7/css/boxicons.min.css";
-// import { Provider } from 'react-redux';
-// import store from './redux/store';
+import { Provider } from 'react-redux';
+import store from "./redux/store";
 import Router from './router/Router';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
         <Router />
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>
 );
 

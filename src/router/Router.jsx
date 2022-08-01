@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "../pages/home/App";
+import App from "../pages/App";
 import Helmet from "../components/Helmet";
 import User from "../pages/user/User";
 import About from "../pages/user/About";
@@ -7,10 +7,12 @@ import Carts from "../pages/user/Carts";
 import ChangePassword from "../pages/user/ChangePassword";
 import Purchased from "../pages/user/Purchased";
 import Register from "../pages/user/Register";
-import Products from "../pages/products/Products";
+import Login from "../pages/user/Login";
+import Slider from "../pages/home/Slider";
 import ProductDetailContainer from "../pages/productDetail/ProductDetailContainer";
 import ProductDetail from "../pages/productDetail/ProductDetail";
 import Admin from "../pages/admin/Admin";
+import ProductList from "../pages/productList/ProductList"
 function Router() {
     return (
         <BrowserRouter>
@@ -30,6 +32,14 @@ function Router() {
                             element={
                                 <Helmet title="Trang đăng ký tài khoản">
                                     <Register />
+                                </Helmet>
+                            }
+                        />
+                        <Route
+                            path="login"
+                            element={
+                                <Helmet title="Trang đăng nhập">
+                                    <Login />
                                 </Helmet>
                             }
                         />
@@ -80,12 +90,18 @@ function Router() {
                             element={<ProductDetail />}
                         ></Route>
                     </Route>
+                    {/* for search products */}
+                    <Route path="search-products" element={
+                        <Helmet title="Trang tìm kiếm sản phẩm">
+                            <ProductList/>
+                        </Helmet>
+                    } />
                     {/* for Products */}
                     <Route
                         path=""
                         element={
                             <Helmet title="Trang chủ">
-                                <Products />
+                                <Slider />
                             </Helmet>
                         }
                     ></Route>
