@@ -2,9 +2,13 @@ import React, {useRef} from "react";
 import {useForm} from "react-hook-form"
 import { Link } from "react-router-dom";
 import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
+import { useDispatch } from "react-redux";
+import {getUserDataAfterLoged} from "./UserSlice"
 const Login = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
+    const dispatch = useDispatch()
     const handleLogin = ()=>{
+        
         let formData = new FormData(loginForm.current)
         fetch(`${baseUrlApi}user.php`,{
             method:"POST",
@@ -13,7 +17,11 @@ const Login = () => {
         }).then(res=>{
             if(res.status===200||res.status===201){
                 res.text().then(res=>{
-                    console.log(res);//2===admin||1===customer
+                    if(Number(res)===2){
+                        alert("Website xây dựng chức năng cho admin😪")
+                    }else if(Number(res)===1){
+                        dispatch(getUserDataAfterLoged(`${baseUrlApi}checklogin.php`))
+                    }
                 })
             }else{
                 alert("Tên tài khoản hoặc mật khẩu không chính xác!")

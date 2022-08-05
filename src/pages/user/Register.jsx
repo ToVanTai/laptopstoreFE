@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { baseUrlApi, accountReg, passwordReg } from "../../configs/configs";
 
 const Register = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
+    const navigate = useNavigate()
     const handleLogin = ()=>{
         let formData = new FormData(loginForm.current)
         fetch(`${baseUrlApi}user.php`,{
@@ -13,11 +14,12 @@ const Register = () => {
             body: formData
         }).then(res=>{
             if(res.status===200||res.status===201){
+                //success redirect login form.
+                navigate("../login")
+            }else{//failed
                 res.text().then(res=>{
-                    console.log(res);//2===admin||1===customer
+                    alert(res);
                 })
-            }else{
-                alert("Tên tài khoản hoặc mật khẩu không chính xác!")
             }
         })
     }
@@ -108,7 +110,7 @@ const Register = () => {
                         {errors.password ? errors.password.message : ""}
                     </span>
                 </div>
-                <input type="hidden" name="crud_req" value="login" />
+                <input type="hidden" name="crud_req" value="register" />
                 <button
                     className={
                         Object.keys(errors).length > 0

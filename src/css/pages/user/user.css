@@ -208,6 +208,11 @@
   font-size: 1.2rem;
   word-spacing: -1.5px;
 }
+@media only screen and (max-width: 576px) {
+  .user__sidebar__item__title {
+    text-align: center;
+  }
+}
 .user__sidebar__item:hover, .user__sidebar__item.active {
   background-color: #FDD922;
   color: #fff;

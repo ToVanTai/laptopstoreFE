@@ -44,6 +44,18 @@ Tablet:
     )
     Footer
 )
+=================================================
+
+reload trang call checklogin->false
+or {user, carts, roleId}
+*khi chưa login baseon roleId=null
+    -availble: register, login
+
+    -not allow:
+*khi đã login
+    -availble: change-password, about, carts, purchased
+
+
 
 
 
