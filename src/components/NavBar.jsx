@@ -18,11 +18,6 @@ const NavBar = () => {
             <div className="navBar__actions">
                 <ul className="navBar__actions__list">
                     <li>
-                        <Link to="/user">
-                            <i className="bx bx-user-circle"></i>
-                        </Link>
-                    </li>
-                    <li>
                         <i className="bx bx-search"></i>
                     </li>
                     <li>
@@ -34,7 +29,16 @@ const NavBar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to=""></Link>
+                        <Link to="/user">
+                            <i className="bx bx-user-circle"></i>
+                        </Link>
+                    </li>
+                    
+                    
+                    <li>
+                        <Link to="">
+                            <i className='bx bx-log-out'></i>
+                        </Link>
                     </li>
                 </ul>
             </div>

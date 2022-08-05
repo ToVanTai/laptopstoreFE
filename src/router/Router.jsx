@@ -13,6 +13,8 @@ import ProductDetailContainer from "../pages/productDetail/ProductDetailContaine
 import ProductDetail from "../pages/productDetail/ProductDetail";
 import Admin from "../pages/admin/Admin";
 import ProductList from "../pages/productList/ProductList"
+import ResetPassword from "../pages/user/ResetPassword";
+import Needhelp from "../pages/user/Needhelp";
 function Router() {
     return (
         <BrowserRouter>
@@ -74,6 +76,20 @@ function Router() {
                                     <Purchased />
                                 </Helmet>
                             }
+                        />
+                        <Route
+                            path="reset-password"
+                            element={
+                                <Helmet title="Bạn quên mật khẩu?">
+                                    <ResetPassword/>
+                                </Helmet>
+                            }
+                        />
+                        <Route
+                            path="need-help"
+                            element={<Helmet title="Bạn cần sự giúp đỡ?">
+                                <Needhelp/>
+                            </Helmet>}
                         />
                     </Route>
                     {/* for product detail */}

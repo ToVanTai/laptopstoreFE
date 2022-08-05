@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from "../access/images/logo.png"
+import {logo} from "../access/data/data"
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {sidebarStatusSelector} from "../redux/selectors"
@@ -27,11 +27,6 @@ const SideBar = () => {
         </div>
         <ul className="sidebar__actions">
             <li>
-                <Link to="/user">
-                    <i className='bx bx-user-circle'></i>
-                </Link>
-            </li>
-            <li>
                 <i className='bx bx-search'></i>
             </li>
             <li>
@@ -43,7 +38,12 @@ const SideBar = () => {
                 </Link>
             </li>
             <li>
-                <Link to=""></Link>
+                <Link to="/user">
+                    <i className='bx bx-user-circle'></i>
+                </Link>
+            </li>
+            <li>
+                <i className='bx bx-log-out'></i>
             </li>
         </ul>
         <ul className="sidebar__brands">

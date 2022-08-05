@@ -1,0 +1,173 @@
+@use "../../../abstracts/" as * ;
+.user__content{
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.5) inset;
+    height: calc($userSidebarItemHeight * 6);
+    background-image: linear-gradient(90deg, rgba(0,0,0,81%), transparent);
+    width: calc($sm-width - $sidebar-width);
+    padding: $p-20;
+    @include flex(center, flex-start);
+    @include tablet{
+        padding-top: $navbar-height;
+        width: 100vw;
+        height: 100vh;
+    }
+    @include mobile{
+        padding-top: $navbar-height;
+        width: 100vw;
+        height: 100vh;
+    }
+}
+.user__heading{
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    word-spacing: 0px;
+    padding-bottom: $p-20;
+    color: $border-color;
+}
+.user__input__field{
+    position: relative;
+    margin-bottom: 20px;
+    &__icon{
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translate(-50%, -50%);
+    }
+    &__error{
+        position: absolute;
+        bottom: 0;
+        left: 30px;
+        color: red;
+        transform: translateY(100%);
+        font-size: 1.2rem;
+        word-spacing: 0;
+        transition: transform 0.3s ease;
+    }
+    &__error.show{
+        transform: translateY(0%);
+    }
+    overflow: hidden;
+}
+.user__input{
+    display: block;
+    width: 280px;
+    padding: 10px 15px;
+    padding-left: 30px;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    border-radius: $border-radius;
+    transition: padding-bottom 0.3s ease;
+    &.show{
+        padding-bottom: 15px;
+    }
+}
+.user__btn__action{
+    display: block;
+    width: 280px;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    border-radius: $border-radius;
+    color: $color-disable;
+    background-color: $text-color-second;
+    text-transform: uppercase;
+    cursor: not-allowed;
+    &.active{
+        cursor: pointer;
+        background-color: $text-color-primary;
+        color: $color-white;
+    }
+}
+// for login
+.user__login{
+    &__forgotPassword{
+        margin-top: $m-t-10;
+        >a{
+            font-style: italic;
+            float: right;
+            color: $text-color-second;
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        >a:hover{
+            color:$text-color-primary;
+            
+        }
+    }
+    &__more__actions{
+        &__createAccount{
+            width: 100%;
+            margin-top: $m-t-20;
+            @include flex(space-between, center);
+            >a{
+                color: $text-color-second;
+                font-size: 1.3rem;
+                text-decoration: none;
+                text-transform: capitalize;
+                transition: color 0.4s ease;
+                text-decoration: underline;
+            }
+            >a:hover{
+                color:$text-color-primary;
+                
+            }
+        }
+    }
+}
+//for register
+.user__register{
+    &__forgotPassword{
+        margin-top: $m-t-10;
+        >a{
+            font-style: italic;
+            float: right;
+            color: $text-color-second;
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        >a:hover{
+            color:$text-color-primary;
+            
+        }
+    }
+    &__more__actions{
+        &__createAccount{
+            width: 100%;
+            margin-top: $m-t-20;
+            @include flex(space-between, center);
+            >a{
+                color: $text-color-second;
+                font-size: 1.3rem;
+                text-decoration: none;
+                text-transform: capitalize;
+                transition: color 0.4s ease;
+                text-decoration: underline;
+            }
+            >a:hover{
+                color:$text-color-primary;
+                
+            }
+        }
+    }
+}
+// for reset password
+.user_reset__password__container.disable{
+    > img{
+        object-fit: cover;
+        width: 100%;
+    }
+}
+//for need help
+.user__needhelp__container.disable{
+    >img{
+        object-fit: cover;
+        width: 100%;
+    }
+}

@@ -1,13 +1,9 @@
 //configs api
-const baseUrlApi = "http://localhost/BTL_N8/api/";
-const baseUrlApiAdmin = "http://localhost/BTL_N8/admin/controller/";
-// configs some pictures
-import logo from "./../access/images/logo.png";
-import product1 from "./../access/images/OIP.jpg";
-import product2 from "./../access/images/product1.png";
-import product3 from "./../access/images/product11-300x300.jpg";
-import sale from "./../access/images/sale.webp";
-import anonymous from "./../access/images/user.png";
+// const baseUrlApi = "http://localhost/laptopstore/api/";
+const baseUrlApi = "https://tailaptop.000webhostapp.com/api/";
+
+const baseUrlApiAdmin = "https://tailaptop.000webhostapp.com/admin/controller/";
+const baseUrlImg = "https://tailaptop.000webhostapp.com/store/";
 // configs some regularExpression
 //for admin
 const regDiscount = "/^[0-9]{0,2}$/"; //0->99
@@ -20,7 +16,6 @@ let nameReg = /^[\p{L}'][ \p{L}'-]*[\p{L}]$/u; //name
 let phoneNumberReg = /^0{1}[0-9]{8,12}$/; //phone_number
 let emailReg =/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; //email
 // exports
-export { baseUrlApi, baseUrlApiAdmin };
-export { logo, product1, product2, product3, sale, anonymous };
+export { baseUrlApi, baseUrlApiAdmin,baseUrlImg };
 export {regDiscount, regPrice, regQuantity};
 export {accountReg, passwordReg, nameReg, phoneNumberReg, emailReg};
