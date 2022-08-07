@@ -1,9 +1,11 @@
 //configs api
-// const baseUrlApi = "http://localhost/laptopstore/api/";
-const baseUrlApi = "https://tailaptop.000webhostapp.com/api/";
+const baseUrlApi = "http://localhost/laptopstore/api/";
+const baseUrlApiAdmin = "http://localhost/laptopstore/admin/controller/";
+const baseUrlImg = "http://localhost/laptopstore/store/";
 
-const baseUrlApiAdmin = "https://tailaptop.000webhostapp.com/admin/controller/";
-const baseUrlImg = "https://tailaptop.000webhostapp.com/store/";
+// const baseUrlApi = "https://tailaptop.000webhostapp.com/mpa/api/";
+// const baseUrlApiAdmin = "https://tailaptop.000webhostapp.com/mpa/admin/controller/";
+// const baseUrlImg = "https://tailaptop.000webhostapp.com/mpa/store/";
 // configs some regularExpression
 //for admin
 const regDiscount = "/^[0-9]{0,2}$/"; //0->99

@@ -9,7 +9,7 @@
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.5) inset;
   height: 420px;
   background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.81), transparent);
-  width: 478px;
+  width: 653px;
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -17,14 +17,14 @@
 }
 @media only screen and (min-width: 577px) and (max-width: 768px) {
   .user__content {
-    padding-top: 78px;
+    padding-top: 88px;
     width: 100vw;
     height: 100vh;
   }
 }
 @media only screen and (max-width: 576px) {
   .user__content {
-    padding-top: 78px;
+    padding-top: 88px;
     width: 100vw;
     height: 100vh;
   }
@@ -91,6 +91,7 @@
   background-color: #7d7d7d;
   text-transform: uppercase;
   cursor: not-allowed;
+  font-weight: bold;
 }
 .user__btn__action.active {
   cursor: pointer;
@@ -104,7 +105,7 @@
 .user__login__forgotPassword > a {
   font-style: italic;
   float: right;
-  color: #7d7d7d;
+  color: #fff;
   font-size: 1.4rem;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -121,7 +122,7 @@
   align-items: center;
 }
 .user__login__more__actions__createAccount > a {
-  color: #7d7d7d;
+  color: #fff;
   font-size: 1.3rem;
   text-decoration: none;
   text-transform: capitalize;
@@ -138,7 +139,7 @@
 .user__register__forgotPassword > a {
   font-style: italic;
   float: right;
-  color: #7d7d7d;
+  color: #fff;
   font-size: 1.4rem;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -155,7 +156,7 @@
   align-items: center;
 }
 .user__register__more__actions__createAccount > a {
-  color: #7d7d7d;
+  color: #fff;
   font-size: 1.3rem;
   text-decoration: none;
   text-transform: capitalize;

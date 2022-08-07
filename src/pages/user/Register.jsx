@@ -1,11 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrlApi, accountReg, passwordReg } from "../../configs/configs";
-
+import {getRoleId} from "../../redux/selectors"
+import {useDispatch , useSelector } from "react-redux";
 const Register = () => {
+    let navigate = useNavigate()
+    let roleId = useSelector(getRoleId)
+    useEffect(()=>{
+        if(roleId!==null){
+        navigate('../about')
+    }
+    })
+    
     const {register, formState: {errors}, handleSubmit} = useForm()
-    const navigate = useNavigate()
+    
     const handleLogin = ()=>{
         let formData = new FormData(loginForm.current)
         fetch(`${baseUrlApi}user.php`,{

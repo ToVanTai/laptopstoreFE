@@ -3,10 +3,16 @@ import { Outlet } from "react-router-dom";
 import { userBackground } from "../../access/data/data";
 import "../../css/pages/user/user.css"
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {getRoleId}from "../../redux/selectors"
+import {setUserDataAfterLogout} from "./UserSlice"
+import {baseUrlApi} from "../../configs/configs"
 const User = () => {
     let roleId = useSelector(getRoleId)
+    const dispatch = useDispatch()
+    let handleLogout = ()=>{
+        dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`))
+    }
     let renderNavLinks = (roleId)=>{
         if(roleId===null){
             return (
@@ -52,16 +58,16 @@ const User = () => {
         }else{
             return (
                 <ul className="user__sidebar">
-                    <div to="register" className="user__sidebar__item disable">
+                    {/* <div to="register" className="user__sidebar__item disable">
                         <i className='bx bx-user-plus user__sidebar__item__main-icon'></i>
                         <p className="user__sidebar__item__title">
                             Đăng ký
                         </p>
-                    </div>
-                    <div to="login" className="user__sidebar__item disable">
-                        <i className='bx bx-log-in user__sidebar__item__main-icon'></i>
+                    </div> */}
+                    <div onClick={handleLogout} className="user__sidebar__item">
+                        <i className='bx bx-log-out user__sidebar__item__main-icon'></i>
                         <p className="user__sidebar__item__title">
-                            Đăng nhập
+                            Đăng xuất
                         </p>
                     </div>
                     <NavLink to="change-password" className={({isActive})=>isActive?'user__sidebar__item active':'user__sidebar__item'}>

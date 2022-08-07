@@ -1,10 +1,20 @@
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import {useForm} from "react-hook-form"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {getUserDataAfterLoged} from "./UserSlice"
+import {getRoleId} from "../../redux/selectors"
+
 const Login = () => {
+    let navigate = useNavigate()
+    let roleId = useSelector(getRoleId) 
+    useEffect(()=>{
+        if(roleId!==null){
+        navigate('../about')
+    }
+    })
+    
     const {register, formState: {errors}, handleSubmit} = useForm()
     const dispatch = useDispatch()
     const handleLogin = ()=>{
@@ -50,7 +60,7 @@ const Login = () => {
                         value: accountReg,
                         message:"Tên tài khoản chỉ bao gồm số và chữ thường!"
                     }
-                })} type="text" className={errors.account ? 'user__input show':'user__input'} placeholder="Enter your account" id="" />
+                })} type="text" className={errors.account ? 'user__input show':'user__input'} placeholder="Nhập tài khoản" id="" />
                 <span className="user__input__field__icon"><i className='bx bx-user'></i></span>
                 <span className={errors.account?'user__input__field__error show':'user__input__field__error'}>{errors.account?errors.account.message:''}</span>
             </div>
@@ -70,7 +80,7 @@ const Login = () => {
                         message: "Mật khẩu không được chứa khoảng trắng"
                     }
                 
-                })} type="password" className={errors.password ? 'user__input show':'user__input'} placeholder="Enter your password" id="" />
+                })} type="password" className={errors.password ? 'user__input show':'user__input'} placeholder="Nhập mật khẩu" id="" />
                 <span className="user__input__field__icon"><i className='bx bx-lock-alt'></i></span>
                 <span className={errors.password ? 'user__input__field__error show':'user__input__field__error'}>{errors.password?errors.password.message:''}</span>
             </div>
