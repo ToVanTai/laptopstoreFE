@@ -3,7 +3,8 @@ import {useForm} from "react-hook-form"
 import {Link,useNavigate} from "react-router-dom"
 import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
 import {getRoleId} from "../../redux/selectors"
-import {setUserDataAfterChangePassword} from "./UserSlice"
+import userSlice from "./UserSlice"
+import { RESET_USER } from '../../redux/constants'
 import {useDispatch , useSelector } from "react-redux";
 const ChangePassword = () => {
     let navigate = useNavigate()
@@ -18,8 +19,23 @@ const ChangePassword = () => {
     const dispatch = useDispatch()
     const handleChangePassword = ()=>{
         let formData = new FormData(registerForm.current)
-        let url = `${baseUrlApi}user.php` 
-        dispatch(setUserDataAfterChangePassword(url, formData))
+        fetch(`${baseUrlApi}user.php`,{
+            method: "POST",
+            credentials: "include",
+            body: formData
+        }).then((res)=>{
+            if(res.status===200 || res.status===201){
+                res.text().then(res=>{
+                    alert(res)
+                    dispatch(userSlice.actions[RESET_USER]())
+                    //success
+                })
+            }else{
+                res.text().then(res=>{
+                    alert(res)
+                })
+            }
+        })
     }
     let registerForm = useRef(null)
     return <div className="user__changePassword__container">

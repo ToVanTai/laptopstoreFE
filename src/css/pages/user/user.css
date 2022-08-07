@@ -80,18 +80,28 @@
 }
 
 .user__btn__action {
+  text-align: center;
   display: block;
   width: 280px;
   padding: 10px 15px;
-  border: none;
-  outline: none;
   font-size: 1.6rem;
   border-radius: 15px;
+  border: none;
+  outline: none;
   color: #ccc;
   background-color: #7d7d7d;
   text-transform: uppercase;
   cursor: not-allowed;
   font-weight: bold;
+}
+.user__btn__action.small {
+  width: fit-content;
+  padding: 5px 20px;
+  border-radius: 5px;
+  text-transform: capitalize;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  margin-right: 20px;
 }
 .user__btn__action.active {
   cursor: pointer;
@@ -170,6 +180,28 @@
 .user_reset__password__container.disable > img {
   object-fit: cover;
   width: 100%;
+}
+
+.user__about__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-color: #fff;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.user__about__table td {
+  padding: 4px 15px;
+  font-size: 1.7rem;
+  letter-spacing: 1.5px;
+  line-height: 1.8rem;
+}
+.user__about__table img {
+  display: block;
+  height: 70px;
+}
+
+.user__about__buttons {
+  display: flex;
 }
 
 .user__needhelp__container.disable > img {

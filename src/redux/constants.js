@@ -2,6 +2,9 @@ export const OPEN_OVERLAY = "open overlay"
 export const CLOSE_OVERLAY = "close overlay"
 export const OPEN_SIDEBAR = "open sidebar"
 export const CLOSE_SIDEBAR = "close sidebar"
+//reset user
+export const RESET_USER = "reset user"
+
 // for role
 export const CHANGE_ROLEID = "change role id" 
 //for carts
