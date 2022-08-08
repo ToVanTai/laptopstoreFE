@@ -6,12 +6,19 @@ import {sidebarStatusSelector} from "../redux/selectors"
 import sideBarSlice from "../components/SidebarSlice.js"
 import overlaySlice from "../components/OverlaySlice"
 import {CLOSE_OVERLAY, CLOSE_SIDEBAR} from "../redux/constants"
+import userSlice,{setUserDataAfterLogout} from "../pages/user/UserSlice"
+import {getRoleId} from "../redux/selectors"
+import {baseUrlApi} from "../configs/configs"
 const SideBar = () => {
     const sidebarStatus = useSelector(sidebarStatusSelector)
     const dispatch = useDispatch()
+    const roleId = useSelector(getRoleId)
     const handleCloseSideBar = ()=>{
         dispatch(sideBarSlice.actions[CLOSE_SIDEBAR]())
         dispatch(overlaySlice.actions[CLOSE_OVERLAY]())
+    }
+    const handleLogout = ()=>{
+            dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`))
     }
   return (
     <div className={sidebarStatus? "sidebar show" : "sidebar"} >
@@ -38,13 +45,13 @@ const SideBar = () => {
                 </Link>
             </li>
             <li>
-                <Link to="/user">
+                <Link to="/user/about">
                     <i className='bx bx-user-circle'></i>
                 </Link>
             </li>
-            <li>
-                <i className='bx bx-log-out'></i>
-            </li>
+            {roleId!==null?(<li>
+                <i className='bx bx-log-out' onClick={handleLogout}></i>
+            </li>):''}
         </ul>
         <ul className="sidebar__brands">
             <li className="sidebar__brands__item">
