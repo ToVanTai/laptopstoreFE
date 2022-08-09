@@ -5,7 +5,7 @@ import { OPEN_OVERLAY, OPEN_SIDEBAR } from "../redux/constants";
 import overlaySlice from "./OverlaySlice";
 import sideBarSlice from "./SidebarSlice";
 import userSlice, { setUserDataAfterLogout } from "../pages/user/UserSlice";
-import { getRoleId } from "../redux/selectors";
+import { getRoleId, getCarts } from "../redux/selectors";
 import { baseUrlApi } from "../configs/configs";
 
 const NavBar = () => {
@@ -15,6 +15,7 @@ const NavBar = () => {
         dispatch(sideBarSlice.actions[OPEN_SIDEBAR]());
     };
     const roleId = useSelector(getRoleId);
+    const carts = useSelector(getCarts)
     const handleLogout = () => {
         dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`));
     };
@@ -33,7 +34,7 @@ const NavBar = () => {
                         <Link to="/user/carts">
                             <i className="bx bx-cart"></i>
                             <span className="sidebar__actions__cart-quantity">
-                                3
+                                {carts.length}
                             </span>
                         </Link>
                     </li>
