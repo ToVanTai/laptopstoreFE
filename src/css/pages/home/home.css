@@ -239,6 +239,180 @@
   }
 }
 
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .productList__container {
+    padding: 10px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .productList__container {
+    padding: 5px;
+  }
+}
+
+.productList__item {
+  transition: box-shadow 0.3s ease;
+  margin: 10px;
+  position: relative;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+}
+.productList__item:hover .productList__item__link__about {
+  transform: translateY(0%);
+}
+.productList__item:hover {
+  box-shadow: 0px 1px 3px #FDD922 !important;
+}
+.productList__item__link {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+.productList__item__link-img {
+  padding: 20px;
+  max-height: 220px;
+}
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .productList__item__link-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .productList__item__link-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.productList__item__link-img img {
+  max-height: 220px;
+  max-width: 220px;
+  width: 100%;
+  object-fit: contain;
+}
+.productList__item__link__about {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  transition: transform 0.3s ease;
+  transform: translateY(100%);
+}
+.productList__item__link__about-model, .productList__item__link__about-screen, .productList__item__link__about-cpu, .productList__item__link__about-vga, .productList__item__link__about-ram {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: red;
+  white-space: nowrap;
+  height: 1.65rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.productList__item__link__about-model {
+  color: #014693;
+}
+.productList__item__link:hover .productList__item__link-link {
+  transform: translateY(0) !important;
+}
+.productList__item__link-link {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: transform 0.3s ease;
+  transform: translateY(100%);
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  height: 8.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.productList__item__link-link i {
+  color: #fff;
+  font-size: 1.6rem;
+}
+.productList__item__link-link span {
+  transition: all 0.3s ease;
+  background-color: #000;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+.productList__item__link-link span:hover {
+  background-color: #FDD922;
+}
+.productList__item__about {
+  padding: 10px;
+}
+.productList__item__about-name {
+  text-transform: uppercase;
+  color: #000;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.7rem;
+  height: 3.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 20px;
+}
+.productList__item__about__price-old, .productList__item__about__price-new {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1px;
+}
+.productList__item__about__price-old {
+  text-decoration: line-through;
+  color: #7d7d7d;
+  font-size: 1.4rem;
+  height: 2rem;
+  opacity: 0;
+}
+.productList__item__about__price-new {
+  color: red;
+  font-size: 2rem;
+  font-weight: 800;
+  height: 2.4rem;
+}
+.productList__item__about__discount {
+  opacity: 0;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.productList__item__about__discount-img {
+  width: 100%;
+  object-fit: cover;
+}
+.productList__item__about__discount-percent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-weight: 1.8rem;
+}
+
+.productList__item.discount .productList__item__about__price-old {
+  opacity: 1;
+}
+.productList__item.discount .productList__item__about__discount {
+  opacity: 1;
+}
+
 .home__slider {
   width: calc(100vw - 290px);
   height: calc((100vw - 290px) / 2);

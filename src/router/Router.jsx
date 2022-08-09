@@ -118,6 +118,7 @@ function Router() {
                         element={
                             <Helmet title="Trang chủ">
                                 <Slider />
+                                <ProductList/>
                             </Helmet>
                         }
                     ></Route>
