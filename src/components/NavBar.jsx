@@ -8,7 +8,7 @@ import userSlice, { setUserDataAfterLogout } from "../pages/user/UserSlice";
 import { getRoleId, getCarts } from "../redux/selectors";
 import { baseUrlApi } from "../configs/configs";
 
-const NavBar = () => {
+const Navbar = () => {
     let dispatch = useDispatch();
     const handleOpenSideBar = () => {
         dispatch(overlaySlice.actions[OPEN_OVERLAY]());
@@ -59,4 +59,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default Navbar;
