@@ -26,7 +26,8 @@
         position: relative;
         &-img{
             padding: $p-20;
-            max-height: 220px;
+            height: 220px;
+            @include flex(center, center);
             @include tablet{
                 @include flex(center, center);
             }
@@ -162,5 +163,12 @@
     }
     .productList__item__about__discount{
         opacity: 1;
+    }
+}
+.productList__pagination{
+    @include flex(center, center);
+    button{
+        font-size: 1.7rem !important;
+        font-family: 'Mulish', sans-serif;
     }
 }

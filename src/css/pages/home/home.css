@@ -271,7 +271,10 @@
 }
 .productList__item__link-img {
   padding: 20px;
-  max-height: 220px;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media only screen and (min-width: 577px) and (max-width: 768px) {
   .productList__item__link-img {
@@ -413,6 +416,16 @@
 }
 .productList__item.discount .productList__item__about__discount {
   opacity: 1;
+}
+
+.productList__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.productList__pagination button {
+  font-size: 1.7rem !important;
+  font-family: "Mulish", sans-serif;
 }
 
 .home__slider {
