@@ -7,7 +7,7 @@
 }
 .footer__list__icon{
     @include flex(center, center);
-    a{
+    a, span{
         display: inline-block;
         font-size: 2.8rem;
         color: $color-white;
@@ -15,7 +15,7 @@
         transition: all 0.3s ease;
         margin-right: 5px;
     }
-    a:hover{
+    a:hover,span:hover{
         color: $color-disable;
     }
 }

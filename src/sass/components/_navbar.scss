@@ -36,6 +36,35 @@
         }
     }
     &__actions {
+        @include flex(flex-start, center);
+        &__input{
+            position: relative;
+            overflow: hidden;
+            input{
+                font-size: 1.6rem;
+                width: 270px;
+                outline: none;
+                border: 1px solid $text-color;
+                padding: 0px 8px;
+                border-radius: 5px;
+                letter-spacing: 1.5px;
+                word-spacing: 0px;
+                line-height: 4rem;
+            }
+            &::before{
+                content: "";
+                transition: all 0.3s ease;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: $color-white;
+            }
+        }
+        &__input.show::before{
+            transform: translateX(-100%);
+        }
         &__list {
             list-style: none;
             margin: $m-25-0;
