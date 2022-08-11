@@ -1,9 +1,12 @@
-import React from 'react'
-import {Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom"
+import "../../css/pages/product/product.css"
 const ProductDetailContainer = () => {
-  return (
-    <div>ProductDetailContainer <Outlet/></div>
-  )
-}
+    
+    return (
+        <div className="productDetail__container">
+            <Outlet />
+        </div>
+    );
+};
 
-export default ProductDetailContainer
+export default ProductDetailContainer;

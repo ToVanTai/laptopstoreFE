@@ -20,6 +20,35 @@
   }
 }
 
+.userPage__footer {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #014693;
+  color: #fff;
+}
+
+.footer__list__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer__list__icon a {
+  display: inline-block;
+  font-size: 2.8rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 5px;
+}
+.footer__list__icon a:hover {
+  color: #ccc;
+}
+
+.footer__title {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
 .navBar {
   position: fixed;
   z-index: 98;

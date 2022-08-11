@@ -1,0 +1,62 @@
+/*
+@media only screen and (max-width: 576px) xs
+@media only screen and (min-width: 577px) and (max-width: 768px) sm
+@media only screen and (min-width: 769px) and (max-width: 992px) md
+@media only screen and (min-width: 993px) and (max-width: 1200px) lg
+
+*/
+.productDetail {
+  padding: 5px;
+}
+@media only screen and (max-width: 576px) {
+  .productDetail {
+    margin-top: 78px;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .productDetail {
+    margin-top: 78px;
+  }
+}
+
+.product__navigate, .productAbout {
+  padding: 5px;
+}
+
+.product__navigate {
+  padding: 10px 5px;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product__navigate__item {
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: #000;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 180px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+.product__navigate__item.active {
+  cursor: default;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FDD922 !important;
+  border-bottom-color: #FDD922 !important;
+}
+.product__navigate__item:hover {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #014693;
+  border-bottom-color: #014693;
+}
+
+/*# sourceMappingURL=product.css.map */
