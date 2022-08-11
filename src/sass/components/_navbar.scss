@@ -7,7 +7,7 @@
     right: 0;
     padding: $p-10;
     height: $navbar-height;
-    background-color: rgba($color: #fff, $alpha: 0.9);
+    background-color: $color-white;
     box-shadow: $box-shadow;
     transition: top 0.3s ease;
     @include mobile() {
