@@ -5,8 +5,19 @@
 @media only screen and (min-width: 993px) and (max-width: 1200px) lg
 
 */
+.productDetail__container {
+  padding: 40px 10px;
+  background-color: #f2f2f2;
+}
+
 .productDetail {
-  padding: 5px;
+  background-color: white;
+  border-radius: 15px;
+}
+@media only screen and (max-width: 768px) {
+  .productDetail {
+    padding: 20px 10px;
+  }
 }
 @media only screen and (max-width: 576px) {
   .productDetail {
@@ -17,6 +28,111 @@
   .productDetail {
     margin-top: 78px;
   }
+}
+.productDetail__left {
+  padding: 20px 10px;
+  padding-right: 20px;
+}
+.productDetail__left__container__main-picture {
+  border: 10px solid #FDD922;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.3);
+}
+.productDetail__left__container__main-picture img {
+  width: 100%;
+  object-fit: cover;
+}
+.productDetail__right {
+  padding: 20px 10px;
+}
+.productDetail__right__model {
+  font-weight: 800;
+  color: #000;
+  font-size: 2.4rem;
+  line-height: 2.6rem;
+  margin-bottom: 20px;
+}
+.productDetail__right__list__newPrice {
+  font-weight: 800;
+  color: red;
+  font-size: 2.4rem;
+  line-height: 2.6rem;
+  margin-bottom: 5px;
+}
+.productDetail__right__oldPrice {
+  font-size: 1.4rem;
+  color: red;
+  margin-bottom: 50px;
+}
+.productDetail__right__oldPrice span {
+  color: #7d7d7d;
+  text-decoration: line-through;
+}
+.productDetail__right__capacities, .productDetail__right__quantities, .productDetail__right__price {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.productDetail__right__capacities__left, .productDetail__right__quantities__left, .productDetail__right__price__left {
+  flex-basis: 200px;
+}
+.productDetail__right__capacities__left > p, .productDetail__right__quantities__left > p, .productDetail__right__price__left > p {
+  color: #7d7d7d;
+}
+.productDetail__right__capacities__right, .productDetail__right__quantities__right, .productDetail__right__price__right {
+  flex-grow: 1;
+  flex-basis: 100%;
+}
+.productDetail__right__capacities__right button {
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: #fff;
+  border: 1px solid #7d7d7d;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.productDetail__right__capacities__right button:hover {
+  background-color: #014693;
+  color: #fff;
+}
+.productDetail__right__capacities__right button.active {
+  cursor: default;
+  color: #fff;
+  background-color: #FDD922;
+  border-color: #FDD922;
+}
+.productDetail__right__price__right-old {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #7d7d7d;
+  text-decoration: line-through;
+}
+.productDetail__right__price__right-current {
+  font-weight: bold;
+  font-size: 2.2rem;
+  color: red;
+  margin-right: 10px;
+}
+.productDetail__right__buyNow {
+  margin-top: 25px;
+}
+.productDetail__right__buyNow button {
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #FDD922;
 }
 
 .product__navigate, .productAbout {

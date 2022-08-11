@@ -1,11 +1,127 @@
 @use "../../abstracts/" as *;
+.productDetail__container{
+    padding: $p-40-10;
+    background-color: $background-color-third;
+}
 .productDetail{
-    padding: $p-5;
+    background-color: white;
+    border-radius: 15px;
+    @include smallDevice(){
+        padding: $p-20-10;
+    }
     @include mobile{
         margin-top: $navbar-height;
     }
     @include tablet{
         margin-top: $navbar-height;
+    }
+    &__left{
+        padding: $p-20-10;
+        padding-right: $p-20;
+        &__container{
+            &__main-picture{
+                border: 10px solid $text-color-primary;
+                border-radius: 4px;
+                @include flex(center, center);
+                box-shadow: 0px 1px 8px rgb(0 0 0 / 30%);
+                img{
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+    &__right{
+        padding: $p-20-10;
+        &__model{
+            font-weight: 800;
+            color: $color-black;
+            font-size: 2.4rem;
+            line-height: 2.6rem;
+            margin-bottom: 20px ;
+        }
+        &__list__newPrice{
+            font-weight: 800;
+            color: red;
+            font-size: 2.4rem;
+            line-height: 2.6rem;
+            margin-bottom: 5px ;
+        }
+        &__oldPrice{
+            font-size: 1.4rem;
+            color: red;
+            margin-bottom: 50px;
+            span{
+                color: $text-color-second;
+                text-decoration: line-through;
+            }
+        }
+
+        &__capacities, &__quantities,&__price{
+            margin-bottom: 15px;
+            @include flex(flex-start, flex-start);
+        }
+        &__capacities__left,&__quantities__left, &__price__left{
+            flex-basis: 200px;
+            & > p{
+                color: $text-color-second;
+            }
+        }
+        &__capacities__right,&__quantities__right, &__price__right{
+            flex-grow: 1;
+            flex-basis: 100%;
+        }
+        &__capacities__right{
+            button{
+                transition: all 0.3s ease;
+                outline: none;
+                background-color: $color-white;
+                border: 1px solid $text-color-second;
+                padding: $p-5-10;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: $p-5;
+                margin-bottom: $p-5;
+                &:hover{
+                    background-color: $text-color-primary-second;
+                    color: $color-white;
+                }
+            }
+            button.active{
+                cursor: default;
+                color: $color-white;
+                background-color: $text-color-primary;
+                border-color: $text-color-primary;
+            }
+        }
+        &__price__right{
+            &-old{
+                font-weight: 600;
+                font-size: 1.8rem;
+                color: $text-color-second;
+                text-decoration: line-through;
+            }
+            &-current{
+                font-weight: bold;
+                font-size: 2.2rem;
+                color: red;
+                margin-right: 10px;
+            }
+        }
+        &__buyNow{
+            margin-top: 25px;
+            button{
+                cursor: pointer;
+                border-radius: 5px;
+                outline: none;
+                border: none;
+                padding: $p-10-20;
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: $color-white;
+                background-color: $text-color-primary;
+            }
+        }
     }
 }
 .product__navigate, .productAbout{
@@ -13,7 +129,7 @@
 }
 .product__navigate{
     padding: $p-10-5;
-    background-color: #f2f2f2;
+    background-color: $background-color-third;
     @include flex(center, center);
     &__item{
         cursor: pointer;

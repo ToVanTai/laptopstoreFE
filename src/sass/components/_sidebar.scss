@@ -51,6 +51,11 @@
         }
     }
     &__actions{
+        >li:first-child{
+            @include smallDevice{
+                display: none;
+            }
+        }
         list-style: none;
         margin: $m-25-0;
         @include flex(center, center);

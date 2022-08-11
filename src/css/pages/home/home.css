@@ -41,7 +41,7 @@
   margin-right: 5px;
 }
 .footer__list__icon a:hover, .footer__list__icon span:hover {
-  color: #ccc;
+  color: #FDD922;
 }
 
 .footer__title {
@@ -228,6 +228,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media only screen and (max-width: 768px) {
+  .sidebar__actions > li:first-child {
+    display: none;
+  }
 }
 .sidebar__actions > li {
   padding: 0px 8px;

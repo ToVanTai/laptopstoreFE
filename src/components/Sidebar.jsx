@@ -65,7 +65,7 @@ const SideBar = () => {
                     </div>
                 </div>
                 <ul className="sidebar__actions">
-                    <li onClick={handleToggleSearchInputStatus}>
+                    <li className="" onClick={handleToggleSearchInputStatus}>
                         <i className="bx bx-search"></i>
                     </li>
                     <li>

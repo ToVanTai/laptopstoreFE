@@ -219,3 +219,25 @@
         width: 100%;
     }
 }
+//for carts
+.userCarts{
+    table{
+        border-collapse: collapse;
+        border-color: $color-white;
+    }
+    td{
+        padding: 5px 10px;
+        color: $color-white;
+    }
+    img{
+        height: 60px;
+        object-fit: cover;
+    }
+    a{
+        display: inline-block;
+        text-decoration: none;
+        color: $color-white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}
