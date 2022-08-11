@@ -2,9 +2,11 @@
 .productList__container{
     @include tablet{
         padding: $p-10;
+        margin-top: $navbar-height;
     }
     @include mobile{
         padding: $p-5;
+        margin-top: $navbar-height;
     }
 }
 .productList__item{

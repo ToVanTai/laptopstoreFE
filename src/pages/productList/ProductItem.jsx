@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import {product1, saleIcon} from "../../access/data/data"
-const ProductItem = () => {
+import {numberWithComas, formatString} from "../../utils/utils"
+const ProductItem = (props) => {
     return (
         <div className="col col-xs-6 col-sm-6 col-md-6 col-lg-3">
-            <div className="productList__item">
-            <Link to="" className="productList__item__link">
+            <div className="productList__item">{/* discount */}
+            <Link to={"/product-detail/1"} className="productList__item__link">
                 <div className="productList__item__link-img">
                     <img src={product1} alt="" />
                 </div>

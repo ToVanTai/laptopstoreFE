@@ -67,7 +67,7 @@ const SideBar = () => {
             </li> */}
                 {brands.data&&brands.data.map((brand) => (
                     <li key={brand.id} className="sidebar__brands__item">
-                        <Link to={"search-products?brands="+brand.name}>
+                        <Link to={"search-products?category-name="+brand.name}>
                             {brand.name}
                         </Link>
                     </li>

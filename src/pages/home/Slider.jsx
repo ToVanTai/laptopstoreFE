@@ -21,7 +21,7 @@ const Slider = () => {
             className="mySwiper"
         >
             {brands.data.map(brand=><SwiperSlide key={brand.id}>
-                <Link to={"search-products?brands="+brand.name}>
+                <Link to={"search-products?category-name="+brand.name}>
                     <img src={baseUrlImg+brand.image} alt={brand.name} />
                 </Link>
             </SwiperSlide>)}

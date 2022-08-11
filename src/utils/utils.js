@@ -21,4 +21,7 @@ let httpGetAsync = function(url, method, data=null, resolve, reject, waiting=nul
 let numberWithComas = function(num){
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-export {httpGetAsync, numberWithComas}
+let formatString = function(string){
+    return string.trim()
+}
+export {httpGetAsync, numberWithComas, formatString}
