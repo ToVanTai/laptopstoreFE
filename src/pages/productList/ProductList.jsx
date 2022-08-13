@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { baseUrlApi, baseUrlImg } from "../../configs/configs";
 import ProductItem from "./ProductItem";
 import Pagination from "@mui/material/Pagination";
+import ProductsHeader from "./ProductsHeader"
 const ProductList = () => {
     let generateUrlParams = (params) => {
         let result = "";
@@ -44,6 +45,12 @@ const ProductList = () => {
     };
     const [searchParams, setSearchParams] = useSearchParams();
     const [productsData, setProductsData] = useState({});
+    const [productsColumns, setProductsColumns] = useState(4);//for products header
+
+    const onChangeQuantityColumns = (quantity)=>{
+        setProductsColumns(quantity);
+    }
+
     let params = Object.fromEntries(searchParams.entries());
     let [page, setPage] = useState(params.page);
     let [limit, setLimit] = useState(params.limit);
@@ -92,13 +99,15 @@ const ProductList = () => {
         params.page = value+""
         setSearchParams(generateParams(params));
     };
+    
     return (
         <>
+            <ProductsHeader onChangeQuantityColumns={onChangeQuantityColumns} columns={productsColumns}/>
             <div className="productList__container row">
                 {/* <ProductItem /> */}
                 {productsData.data &&
                     productsData.data.map((product) => (
-                        <ProductItem key={product.id} data={product} />
+                        <ProductItem key={product.id} data={product} columns={productsColumns} />
                     ))}
             </div>
             <div className="productList__pagination">

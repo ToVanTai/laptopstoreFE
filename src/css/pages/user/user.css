@@ -18,14 +18,14 @@
 }
 @media only screen and (min-width: 577px) and (max-width: 768px) {
   .user__content {
-    padding-top: 88px;
+    padding-top: 70px;
     width: 100vw;
     height: 100vh;
   }
 }
 @media only screen and (max-width: 576px) {
   .user__content {
-    padding-top: 88px;
+    padding-top: 70px;
     width: 100vw;
     height: 100vh;
   }
@@ -267,9 +267,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) {
   .user__sidebar__item {
-    width: unset;
+    height: 60px;
     padding: 0px 8px;
   }
 }
@@ -281,7 +281,7 @@
   font-size: 1.2rem;
   word-spacing: -1.5px;
 }
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) {
   .user__sidebar__item__title {
     text-align: center;
   }
@@ -305,19 +305,7 @@
 .user__sidebar__item.disable .user__sidebar__item__main-icon {
   color: #ccc;
 }
-@media only screen and (min-width: 577px) and (max-width: 768px) {
-  .user__sidebar {
-    position: fixed;
-    z-index: 97;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) {
   .user__sidebar {
     position: fixed;
     z-index: 97;

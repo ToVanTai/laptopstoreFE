@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import {baseUrlImg} from "../../configs/configs"
 import {product1, saleIcon} from "../../access/data/data"
 import {numberWithComas, formatString} from "../../utils/utils"
-const ProductItem = ({data}) => {
+const ProductItem = ({data,columns}) => {
     return (
-        <div className="col col-xs-6 col-sm-6 col-md-6 col-lg-3">
+        <div className={columns===4?"col col-xs-6 col-sm-6 col-md-6 col-lg-3":"col col-xs-6 col-sm-6 col-md-6 col-lg-6"}>
             <div className={Number(data.discount)!==0?"productList__item discount":"productList__item"}>{/* discount */}
             <Link to={"/product-detail/"+data.id} className="productList__item__link">
                 <div className="productList__item__link-img">

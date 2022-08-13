@@ -1,5 +1,5 @@
 @use "../../../abstracts/" as *;
-.productList__container{
+.productList__container, .productsHeader__container{
     @include tablet{
         padding: $p-10;
         margin-top: $navbar-height;
@@ -170,5 +170,90 @@
     button{
         font-size: 1.7rem !important;
         font-family: 'Mulish', sans-serif;
+    }
+}
+.productsHeader{
+    &__container{
+        padding: 10px;
+    }
+    &__heading{
+        text-align: center;
+        margin: 30px 0px;
+        p{
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+    }
+    &__controls{
+        margin-bottom: 15px;
+        @include flex(space-between,center);
+        @include smallDevice(){
+            align-items: flex-start;
+        }
+        &__left{
+            cursor: pointer;
+            @include flex(center, center);
+            color: $color-black;
+            font-size: 2rem;
+            i{
+                font-size: 2.8rem;
+                margin-right: 10px;
+            }
+        }
+        &__left:hover{
+            color: $text-color-primary;
+            i{
+                color: $text-color-primary;
+            }
+        }
+        &__right{
+            @include flex(center, center);
+            &__viewMode, &__sort{
+                @include flex(center, center);
+            }
+            &__viewMode{
+                @include smallDevice(){
+                    margin-top: 15px;
+                }
+            }
+            @include smallDevice(){
+                flex-direction: column-reverse;
+                align-items: flex-end
+            };
+            span{
+                @include flex(center, center);
+            }
+            p{
+                margin-right: 10px;
+                margin-left: 20px;
+            }
+            p,i{
+                font-size: 2rem;
+                word-spacing: 2px;
+                letter-spacing: 1.5px;
+                line-height: 2rem;
+            }
+            select{
+                outline: none;
+                word-spacing: 2px;
+                padding: 8px 10px;
+                border-color: $text-color-second;
+                font-size: 1.8rem;
+                color: $text-color;
+            }
+            i{
+                cursor: pointer;
+                &:hover{
+                    color: $text-color-primary;
+                }
+                font-size: 3.2rem;
+                width: 2.6rem;
+                &.active{
+                    cursor: default;
+                    color: $text-color-primary;
+                }
+            }
+        }
     }
 }
