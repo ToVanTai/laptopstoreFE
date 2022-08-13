@@ -2,11 +2,11 @@
 .productList__container, .productsHeader__container{
     @include tablet{
         padding: $p-10;
-        margin-top: $navbar-height;
+        margin-top: 0;
     }
     @include mobile{
         padding: $p-5;
-        margin-top: $navbar-height;
+        margin-top: 0;
     }
 }
 .productList__item{
@@ -184,6 +184,12 @@
             font-weight: 300;
             letter-spacing: 2px;
         }
+        @include smallDevice(){
+            margin: 15px 0px;
+            p{
+                font-size: 2.8rem;
+            }
+        }
     }
     &__controls{
         margin-bottom: 15px;
@@ -199,6 +205,12 @@
             i{
                 font-size: 2.8rem;
                 margin-right: 10px;
+            }
+            @include smallDevice(){
+                font-size: 1.6rem;
+                i{
+                    font-size: 2.6rem;
+                }
             }
         }
         &__left:hover{
@@ -233,6 +245,11 @@
                 word-spacing: 2px;
                 letter-spacing: 1.5px;
                 line-height: 2rem;
+                @include smallDevice(){
+                    font-size: 1.6rem;
+                    letter-spacing: 1px;
+                    word-spacing: 0;
+                }
             }
             select{
                 outline: none;
@@ -241,6 +258,10 @@
                 border-color: $text-color-second;
                 font-size: 1.8rem;
                 color: $text-color;
+                @include smallDevice(){
+                    padding: 6px 10px;
+                    font-size: 1.6rem;
+                }
             }
             i{
                 cursor: pointer;

@@ -50,6 +50,9 @@
                 letter-spacing: 1.5px;
                 word-spacing: 0px;
                 line-height: 4rem;
+                @include smallDevice(){
+                    width: 200px !important;
+                }
             }
             &::before{
                 content: "";

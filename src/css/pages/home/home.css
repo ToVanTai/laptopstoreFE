@@ -114,6 +114,11 @@
   word-spacing: 0px;
   line-height: 4rem;
 }
+@media only screen and (max-width: 768px) {
+  .navBar__actions__input input {
+    width: 200px !important;
+  }
+}
 .navBar__actions__input::before {
   content: "";
   transition: all 0.3s ease;
@@ -349,13 +354,13 @@
 @media only screen and (min-width: 577px) and (max-width: 768px) {
   .productList__container, .productsHeader__container {
     padding: 10px;
-    margin-top: 60px;
+    margin-top: 0;
   }
 }
 @media only screen and (max-width: 576px) {
   .productList__container, .productsHeader__container {
     padding: 5px;
-    margin-top: 60px;
+    margin-top: 0;
   }
 }
 
@@ -547,6 +552,14 @@
   font-weight: 300;
   letter-spacing: 2px;
 }
+@media only screen and (max-width: 768px) {
+  .productsHeader__heading {
+    margin: 15px 0px;
+  }
+  .productsHeader__heading p {
+    font-size: 2.8rem;
+  }
+}
 .productsHeader__controls {
   margin-bottom: 15px;
   display: flex;
@@ -569,6 +582,14 @@
 .productsHeader__controls__left i {
   font-size: 2.8rem;
   margin-right: 10px;
+}
+@media only screen and (max-width: 768px) {
+  .productsHeader__controls__left {
+    font-size: 1.6rem;
+  }
+  .productsHeader__controls__left i {
+    font-size: 2.6rem;
+  }
 }
 .productsHeader__controls__left:hover {
   color: #FDD922;
@@ -612,6 +633,13 @@
   letter-spacing: 1.5px;
   line-height: 2rem;
 }
+@media only screen and (max-width: 768px) {
+  .productsHeader__controls__right p, .productsHeader__controls__right i {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    word-spacing: 0;
+  }
+}
 .productsHeader__controls__right select {
   outline: none;
   word-spacing: 2px;
@@ -619,6 +647,12 @@
   border-color: #7d7d7d;
   font-size: 1.8rem;
   color: #000;
+}
+@media only screen and (max-width: 768px) {
+  .productsHeader__controls__right select {
+    padding: 6px 10px;
+    font-size: 1.6rem;
+  }
 }
 .productsHeader__controls__right i {
   cursor: pointer;
