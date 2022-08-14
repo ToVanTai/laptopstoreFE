@@ -4,6 +4,7 @@ import "../../css/pages/product/product.css";
 import { baseUrlApi } from "../../configs/configs";
 import { baseUrlImg } from "../../configs/configs";
 import { formatString, numberWithComas } from "../../utils/utils";
+import Stars from "./Stars";
 const ProductDetail = () => {
     const { productId } = useParams();
     const [productData, setProductData] = useState();
@@ -99,6 +100,15 @@ const ProductDetail = () => {
                                       "đ"
                                     : ""}
                             </div>
+                            <div className="productDetail__right__stars">
+                                <Stars count={9}/>
+                                <div className="productDetail__right__stars-quantities">
+                                    0 đánh giá
+                                </div>
+                                <div className="productDetail__right__stars-buyed">
+                                    <i class='bx bx-shopping-bag'></i> 0 lượt mua
+                                </div>
+                            </div>
                             <div className="productDetail__right__oldPrice">
                                 <span>
                                     {Number(productData.discount) > 0
@@ -119,11 +129,7 @@ const ProductDetail = () => {
                                     ? "Giảm đến " + productData.discount + "%"
                                     : ""}
                             </div>
-                            <hr
-                                style={{
-                                    marginTop: "20px",
-                                    marginBottom: "20px",
-                                }}
+                            <hr className="productDetail__line"
                             />
                             <div className="productDetail__right__capacities">
                                 <div className="productDetail__right__capacities__left">
