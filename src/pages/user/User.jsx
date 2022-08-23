@@ -38,7 +38,7 @@ const User = () => {
                     <div to="about" className="user__sidebar__item disable">
                         <i className='bx bxs-user-account user__sidebar__item__main-icon'></i>
                         <p className="user__sidebar__item__title">
-                            Thông tin cá nhân
+                            Cá nhân
                         </p>
                     </div>
                     <div to="carts" className="user__sidebar__item disable">
@@ -79,7 +79,7 @@ const User = () => {
                     <NavLink to="about" className={({isActive})=>isActive?'user__sidebar__item active':'user__sidebar__item'}>
                         <i className='bx bxs-user-account user__sidebar__item__main-icon'></i>
                         <p className="user__sidebar__item__title">
-                            Thông tin cá nhân
+                            Cá nhân
                         </p>
                     </NavLink>
                     <NavLink to="carts" className={({isActive})=>isActive?'user__sidebar__item active':'user__sidebar__item'}>

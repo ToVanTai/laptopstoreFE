@@ -26,10 +26,10 @@ const ProductsHeader = ({onChangeQuantityColumns, columns}) => {
                     <p className="productsHeader__controls__right__sort-title">
                         Sắp xếp theo
                     </p>
-                    <select>
-                        <option value="" selected>Mặc định</option>
-                        <option value="">Giá giảm dần</option>
-                        <option value="">Giá tăng dần</option>
+                    <select defaultValue={0}>
+                        <option value={0}>Mặc định</option>
+                        <option value={-1}>Giá giảm dần</option>
+                        <option value={1}>Giá tăng dần</option>
                     </select>
                 </div>
             </div>

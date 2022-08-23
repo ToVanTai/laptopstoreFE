@@ -20,9 +20,9 @@ const Navbar = () => {
     const roleId = useSelector(getRoleId);
     const carts = useSelector(getCarts)
     let params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-    const handleLogout = () => {
-        dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`));
-    };
+    // const handleLogout = () => {
+    //     dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`));
+    // };
     const handleToggleSearchInputStatus = ()=>{
         setIsShowSearchInput(prev=>!prev)
     }
@@ -71,7 +71,7 @@ const Navbar = () => {
                             <i className="bx bx-user-circle"></i>
                         </Link>
                     </li>
-                    {roleId !== null ? (
+                    {/* {roleId !== null ? (
                         <li>
                             <i
                                 className="bx bx-log-out"
@@ -80,7 +80,7 @@ const Navbar = () => {
                         </li>
                     ) : (
                         ""
-                    )}
+                    )} */}
                 </ul>
             </div>
         </div>
