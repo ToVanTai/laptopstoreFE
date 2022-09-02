@@ -24,4 +24,13 @@ let numberWithComas = function(num){
 let formatString = function(string){
     return string.trim()
 }
-export {httpGetAsync, numberWithComas, formatString}
+let generateNewPrice = function(price, discount){//return number
+    return Number(discount)!==0? numberWithComas(Number(price)*(100 - Number(discount))/100):numberWithComas(price);
+}
+let generateOldPrice = function(price, discount){//return number
+    return Number(discount)!==0?numberWithComas(price):"";
+}
+let generateQuantityCart = function(carts){
+    return carts.reduce((pev, cart)=>pev+=Number(cart.quantity),0)
+}
+export {httpGetAsync, numberWithComas, formatString, generateNewPrice, generateOldPrice, generateQuantityCart}

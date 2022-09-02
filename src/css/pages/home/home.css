@@ -560,7 +560,7 @@
 }
 @media only screen and (max-width: 768px) {
   .productsHeader__heading {
-    margin: 15px 0px;
+    margin: 12px 0px;
   }
   .productsHeader__heading p {
     font-size: 2.8rem;

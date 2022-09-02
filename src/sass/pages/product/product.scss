@@ -61,6 +61,7 @@
         &__stars{
             @include flex(flex-start, flex-start);
             .stars__wrapper{
+                margin-left: -5px;
                 position: relative;
                 display:  flex;
                 flex-direction: row-reverse;

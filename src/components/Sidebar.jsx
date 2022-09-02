@@ -9,6 +9,7 @@ import { CLOSE_OVERLAY, CLOSE_SIDEBAR } from "../redux/constants";
 import userSlice, { setUserDataAfterLogout } from "../pages/user/UserSlice";
 import { getRoleId, getBrands, getCarts } from "../redux/selectors";
 import { baseUrlApi } from "../configs/configs";
+import {generateQuantityCart} from "../utils/utils"
 const SideBar = () => {
     let navigate = useNavigate()
     const sidebarStatus = useSelector(sidebarStatusSelector);
@@ -72,7 +73,7 @@ const SideBar = () => {
                         <Link to="/user/carts">
                             <i className="bx bx-cart"></i>
                             <span className="sidebar__actions__cart-quantity">
-                                {carts.length}
+                                {generateQuantityCart(carts)}
                             </span>
                         </Link>
                     </li>

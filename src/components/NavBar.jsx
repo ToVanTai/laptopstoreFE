@@ -7,7 +7,7 @@ import sideBarSlice from "./SidebarSlice";
 import userSlice, { setUserDataAfterLogout } from "../pages/user/UserSlice";
 import { getRoleId, getCarts } from "../redux/selectors";
 import { baseUrlApi } from "../configs/configs";
-
+import {generateQuantityCart} from "../utils/utils"
 const Navbar = () => {
     let navigate = useNavigate()
     let dispatch = useDispatch();
@@ -62,7 +62,7 @@ const Navbar = () => {
                         <Link to="/user/carts">
                             <i className="bx bx-cart"></i>
                             <span className="sidebar__actions__cart-quantity">
-                                {carts.length}
+                                {generateQuantityCart(carts)}
                             </span>
                         </Link>
                     </li>

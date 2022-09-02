@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import "../../css/pages/product/product.css";
 import { baseUrlApi } from "../../configs/configs";
 import { baseUrlImg } from "../../configs/configs";
-import { formatString, numberWithComas } from "../../utils/utils";
+import {addToCart} from "../user/UserSlice"
+
+import {
+    formatString,
+    numberWithComas,
+    generateNewPrice,
+    generateOldPrice,
+} from "../../utils/utils";
 import Stars from "./Stars";
 const ProductDetail = () => {
+    const dispatch = useDispatch();
     const { productId } = useParams();
     const [productData, setProductData] = useState();
     const [productSelected, setProductSelected] = useState();
@@ -53,17 +62,8 @@ const ProductDetail = () => {
                 capacityName: productSelected["capacity_name"],
                 quantityRemain: Number(productSelected.quantity) - 1,
             };
-            fetch(`${baseUrlApi}carts.php${urlParams}`, {
-                method: "POST",
-                credentials: "include",
-                body: JSON.stringify(dataBody),
-            }).then((res) => {
-                if (res.status === 200 || res.status === 201) {
-                    res.text().then(res=>alert("Thành công"));
-                } else {
-                    res.text().then((res) => alert(res));
-                }
-            });
+            let url =`${baseUrlApi}carts.php${urlParams}`;
+        dispatch(addToCart({url, dataBody}));
         } else {
             alert("Số lượng không đủ!");
         }
@@ -101,36 +101,36 @@ const ProductDetail = () => {
                                     : ""}
                             </div>
                             <div className="productDetail__right__stars">
-                                <Stars count={9}/>
+                                <Stars count={9} />
                                 <div className="productDetail__right__stars-quantities">
                                     0 đánh giá
                                 </div>
                                 <div className="productDetail__right__stars-buyed">
-                                    <i class='bx bx-shopping-bag'></i> 0 lượt mua
+                                    <i className="bx bx-shopping-bag"></i> 0
+                                    lượt mua
                                 </div>
                             </div>
                             <div className="productDetail__right__oldPrice">
                                 <span>
-                                    {Number(productData.discount) > 0
-                                        ? numberWithComas(
-                                              (Number(
-                                                  sortListPrice[
-                                                      sortListPrice.length - 1
-                                                  ].price
-                                              ) *
-                                                  Number(
-                                                      productData.discount
-                                                  )) /
-                                                  100
-                                          ) + "đ"
+                                    {generateOldPrice(
+                                        (Number(
+                                            sortListPrice[
+                                                sortListPrice.length - 1
+                                            ].price
+                                        ) *
+                                            Number(productData.discount)) /
+                                            100,
+                                        productData.discount
+                                    )}
+                                    {Number(productData.discount) !== 0
+                                        ? "đ"
                                         : ""}
                                 </span>{" "}
                                 {Number(productData.discount) > 0
                                     ? "Giảm đến " + productData.discount + "%"
                                     : ""}
                             </div>
-                            <hr className="productDetail__line"
-                            />
+                            <hr className="productDetail__line" />
                             <div className="productDetail__right__capacities">
                                 <div className="productDetail__right__capacities__left">
                                     <p>Chọn dung lượng:</p>
@@ -173,26 +173,11 @@ const ProductDetail = () => {
                                 </div>
                                 <div className="productDetail__right__price__right">
                                     <span className="productDetail__right__price__right-current">
-                                        {numberWithComas(
-                                            Number(productData.discount) > 0
-                                                ? (Number(
-                                                      productSelected.price
-                                                  ) *
-                                                      (100 -
-                                                          Number(
-                                                              productData.discount
-                                                          ))) /
-                                                      100
-                                                : productSelected.price
-                                        )}
+                                        {generateNewPrice(productSelected.price,productData.discount)}
                                         đ
                                     </span>
                                     <span className="productDetail__right__price__right-old">
-                                        {Number(productData.discount) > 0
-                                            ? numberWithComas(
-                                                  productSelected.price
-                                              ) + "đ"
-                                            : ""}
+                                        {generateOldPrice(productSelected.price, productData.discount)}
                                     </span>
                                 </div>
                             </div>

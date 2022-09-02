@@ -80,6 +80,7 @@
   align-items: flex-start;
 }
 .productDetail__right__stars .stars__wrapper {
+  margin-left: -5px;
   position: relative;
   display: flex;
   flex-direction: row-reverse;
