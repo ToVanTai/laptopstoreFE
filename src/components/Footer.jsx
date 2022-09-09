@@ -9,7 +9,7 @@ const Footer = () => {
             <a target="_blank" href='https://github.com/ToVanTai' title='github cá nhân'><i className='bx bxl-github'></i></a>
         </div>
         <div className="footer__title">
-            Xây dựng bởi nhóm 10😘
+            Xây dựng bởi Tô Văn Tài😘
         </div>
     </div>
   )
