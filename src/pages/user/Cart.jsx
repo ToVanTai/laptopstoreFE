@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import {baseUrlImg} from "../../configs/configs"
-import {generateNewPrice,generateOldPrice, numberWithComas} from "../../utils/utils"
-import {product1} from "../../access/data/data"
-const Cart = ({data}) => {
+import { numberWithComas} from "../../utils/utils"
+
+const Cart = ({data,onDeleteCart,onChangeQuantities}) => {
     return (
         <div className="userCarts__item">
             <input type="checkbox" className="userCarts__item-checkbox userCarts__checkbox"  />
@@ -20,15 +21,15 @@ const Cart = ({data}) => {
             </div>
             <div className="userCarts__item__quantities">
                 <div className={Number(data.quantity)===1?"userCarts__item__quantities-decrease disable":"userCarts__item__quantities-decrease"}>
-                    <i className="bx bx-minus"></i>
+                    <i className="bx bx-minus" onClick={()=>onChangeQuantities(data.productId, data.capacityId, false)}></i>
                 </div>
                 <div className="userCarts__item__quantities-quantities">{data.quantity}</div>
                 <div className={Number(data.detail.quantityRemain)<=Number(data.quantity)?"userCarts__item__quantities-crease disable":"userCarts__item__quantities-crease"}>
-                    <i className="bx bx-plus"></i>
+                    <i className="bx bx-plus" onClick={()=>onChangeQuantities(data.productId, data.capacityId)}></i>
                 </div>
             </div>
             <div className="userCarts__item-delete">
-                <i className="bx bx-trash"></i>
+                <i className="bx bx-trash" onClick={()=>onDeleteCart(data.productId, data.capacityId)}></i>
             </div>
         </div>
     );

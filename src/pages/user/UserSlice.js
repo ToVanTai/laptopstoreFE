@@ -48,6 +48,16 @@ let userSlice = createSlice({
                     state.carts = action.payload
                 }
             })
+            .addCase(deleteCart.fulfilled,(state, action)=>{
+                if(action.payload!==null){
+                    state.carts = action.payload
+                }
+            })
+            .addCase(changeQuantitiesCart.fulfilled,(state, action)=>{
+                if(action.payload!==null){
+                    state.carts = action.payload
+                }
+            })
             ;
     },
 });
@@ -145,5 +155,85 @@ const addToCart = createAsyncThunk("user/addToCart", async (params) => {
     })
     return dataRes
 })
-export { getUserDataAfterLoged, setUserDataAfterLogout, getUserDataOnFirstLoad, addToCart };
+const deleteCart = createAsyncThunk("user/deleteCart",async (data)=>{
+    let {productId, capacityId,carts,url} = data;
+    let indexDel = carts.findIndex(cart=>Number(cart.productId)===Number(productId)&&Number(cart.capacityId)===Number(capacityId))
+    let newCarts = carts.reduce((result,item,index)=>{
+        if(indexDel!==index){
+            return [...result,item]
+        }else{
+            return result
+        }
+    },[])
+    let dataBody =newCarts
+    let dataRes = null;
+    await new Promise((resolve, reject) => {
+        fetch(url, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(dataBody),
+        }).then((res) => {
+            if (res.status === 200 || res.status === 201) {
+                res.text().then((res) => {
+                        dataRes = JSON.parse(res)
+                        resolve()
+                    }
+                );
+            } else {
+                res.text().then((res) => {
+                    alert(res) 
+                    reject()
+                });
+            }
+        }).catch(()=>reject());
+    })
+    return dataRes
+})
+const changeQuantitiesCart = createAsyncThunk("user/changeQuantitiesCart",async (data)=>{
+    let dataRes = null;
+    let newCarts=[];
+    let {productId, capacityId,carts,url,isIncrease} = data;
+    let indexChange = carts.findIndex(cart=>Number(cart.productId)===Number(productId)&&Number(cart.capacityId)===Number(capacityId))
+    if(isIncrease){
+        newCarts = carts.reduce((result,item,index)=>{
+                if(indexChange===index){
+                    return [...result,{...item,quantity:Number(item.quantity)+1}]
+                }else{
+                    return [...result,item]
+                }
+            },[])
+    }else{
+        newCarts = carts.reduce((result,item,index)=>{
+            if(indexChange===index){
+                return [...result,{...item,quantity:Number(item.quantity)-1}]
+            }else{
+                return [...result,item]
+            }
+        },[])
+    }
+    let dataBody = newCarts
+    console.log(dataBody);
+    await new Promise((resolve, reject) => {
+    fetch(url, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(dataBody),
+    }).then((res) => {
+        if (res.status === 200 || res.status === 201) {
+            res.text().then((res) => {
+                    dataRes = JSON.parse(res)
+                    resolve()
+                }
+            );
+        } else {
+            res.text().then((res) => {
+                alert(res) 
+                reject()
+            });
+        }
+    }).catch(()=>reject());
+    })
+    return dataRes
+})
+export { getUserDataAfterLoged, setUserDataAfterLogout, getUserDataOnFirstLoad, addToCart, deleteCart,changeQuantitiesCart };
 export default userSlice;

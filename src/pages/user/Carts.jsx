@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { deleteCart,changeQuantitiesCart } from "./UserSlice";
 import { useNavigate } from "react-router-dom";
 import { getRoleId,getCarts } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,6 @@ const Carts = () => {
             navigate("../login");
         }
     });
-    
     let carts = useSelector(getCarts)
     let cartQuantities = carts.reduce((result, item)=>{
         return result+Number(item.quantity)
@@ -22,18 +22,30 @@ const Carts = () => {
     let cartPrice = carts.reduce((result, item)=>{
         return result+(Number(item.quantity)*Number(item.detail.newPrice))
     },0)
-    // const handleDeleteCart = (productId, capacityId)=>{
-    //     let indexDelete = 0;
-    //     for(var i=0;i<carts.length; i++){
-    //         if(Number(carts[i].productId) === Number(productId) && Number(carts[i].capacityId) === Number(capacityId)){
-    //             break;
-    //         }else{
-    //             indexDelete++;
-    //         }
-    //     }
-    //     carts.splice(indexDelete,1)
-    //     setCarts([...carts]);
-    // }
+    const dispatch = useDispatch()
+    const handleDeleteCart = (productId, capacityId)=>{
+        if(window.confirm("Bạn có muấn thực hiện chức năng xóa!")){
+                let url = `${baseUrlApi}carts.php?crud_req=updateCarts`
+                dispatch(deleteCart({productId, capacityId,carts,url}))
+        }
+    }
+    const handleChangeQuantity = (productId, capacityId,isIncrease=true)=>{
+        let indexChange = carts.findIndex(cart=>Number(cart.productId)===Number(productId)&&Number(cart.capacityId)===Number(capacityId))
+        let isAllowCallApi=true;
+        if(isIncrease){
+            if(Number(carts[indexChange].detail.quantityRemain)<=Number(carts[indexChange].quantity)){
+                isAllowCallApi=false
+            }
+        }else{
+            if(Number(carts[indexChange].quantity)===1){
+                isAllowCallApi=false
+            }
+        }
+        if(isAllowCallApi){
+            let url = `${baseUrlApi}carts.php?crud_req=updateCarts`
+            dispatch(changeQuantitiesCart({productId, capacityId,carts,url,isIncrease}))
+        }
+    }
     return (
         <>
             <div>
@@ -60,7 +72,7 @@ const Carts = () => {
                         </div>
                     </div>
                     <div className="userCarts__content">
-                        {carts.map((cart,index)=><Cart key={cart.capacityId} data={cart}/>)}
+                        {carts.map((cart,index)=><Cart key={cart.capacityId} onChangeQuantities={handleChangeQuantity} onDeleteCart = {handleDeleteCart} data={cart}/>)}
                     </div>
                     <div className="userCarts__footer">
                         <div className="userCarts__footer__left">
