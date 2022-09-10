@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getRoleId } from "../../redux/selectors";
+import { getRoleId,getCarts } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { baseUrlApi } from "../../configs/configs";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
+import {numberWithComas} from "../../utils/utils"
 const Carts = () => {
     let navigate = useNavigate();
     let roleId = useSelector(getRoleId);
@@ -14,6 +15,13 @@ const Carts = () => {
         }
     });
     
+    let carts = useSelector(getCarts)
+    let cartQuantities = carts.reduce((result, item)=>{
+        return result+Number(item.quantity)
+    },0)
+    let cartPrice = carts.reduce((result, item)=>{
+        return result+(Number(item.quantity)*Number(item.detail.newPrice))
+    },0)
     // const handleDeleteCart = (productId, capacityId)=>{
     //     let indexDelete = 0;
     //     for(var i=0;i<carts.length; i++){
@@ -52,16 +60,26 @@ const Carts = () => {
                         </div>
                     </div>
                     <div className="userCarts__content">
-                        <Cart/>
-                        <Cart/>
-                        <Cart/>
-                        <Cart/>
-                        <Cart/>
-                        <Cart/>
-                        <Cart/>
+                        {carts.map((cart,index)=><Cart key={cart.capacityId} data={cart}/>)}
                     </div>
                     <div className="userCarts__footer">
-                        kk
+                        <div className="userCarts__footer__left">
+
+                        </div>
+                        <div className="userCarts__footer__right">
+                            <div className="userCarts__footer__right-title">
+                                Tổng: 
+                            </div> 
+                            <div className="userCarts__footer__right-quantities">
+                                {cartQuantities} sản phẩm
+                            </div>
+                            <div className="userCarts__footer__right-price">
+                                {numberWithComas(cartPrice)}đ
+                            </div>
+                            <div className="userCarts__footer__right-buy">
+                                <button className="disable">Mua Hàng</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

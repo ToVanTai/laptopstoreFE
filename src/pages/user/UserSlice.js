@@ -70,7 +70,6 @@ const getUserDataAfterLoged = createAsyncThunk(
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
                     reject();
                 });
         });
@@ -93,7 +92,6 @@ const setUserDataAfterLogout = createAsyncThunk("user/setUserDataAfterLogout", a
                 }
             })
             .catch((err) => {
-                console.log(err);
                 dataRes = false
                 reject()
             });
@@ -118,7 +116,6 @@ const getUserDataOnFirstLoad = createAsyncThunk("user/getUserDataOnFirstLoad", a
                 }
             })
             .catch((err) => {
-                console.log(err);
                 reject();
             });
     });
@@ -134,7 +131,6 @@ const addToCart = createAsyncThunk("user/addToCart", async (params) => {
         }).then((res) => {
             if (res.status === 200 || res.status === 201) {
                 res.text().then((res) => {
-                    console.log(params);
                         dataRes = JSON.parse(res)
                         resolve()
                     }

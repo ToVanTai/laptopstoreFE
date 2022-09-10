@@ -321,7 +321,8 @@
             }
         }
         &-img{
-            margin-left: 10px;
+            display: block;
+            margin-left: 5px;
             @include mobile{
                 margin-left: 5px;
             }
@@ -337,8 +338,10 @@
             }
         }
         &-name{
-            margin: 0px 5px 0px 15px;
-            
+            text-decoration: none;
+            color: $text-color;
+            display: block;
+            margin: 0px 5px 0px 10px;
             width: 198px;
             font-size: 1.3rem;
             line-height: 1.5rem;
@@ -364,7 +367,7 @@
             }
         }
         &__price{
-            margin: 0px 15px;
+            margin: 0px 8px;
             @include mobile{
                 margin: 0 0 0 5px;
             }
@@ -432,7 +435,38 @@
     }
     &__footer{
         margin-top: 5px;
-        background-color: wheat;
-        padding: 15px;
+        background-color: $color-white;
+        padding: 10px 15px;
+        @include mobile{
+            padding: 10px;
+        }
+        font-size: 1.3rem;
+        @include flex(space-between, center);
+        &__right{
+            @include flex(flex-end, center);
+            &-title, &-quantities,&-buy, &-price{
+                margin-left: 5px;
+            }
+            &-price{
+                color: red;
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            &-buy{
+                button{
+                    border: none;
+                    outline: none;
+                    background-color: red;
+                    color:$color-white;
+                    font-size: 1.1rem;
+                    padding: 5px 25px;
+                    cursor: pointer;
+                }
+                button.disable{
+                    cursor: not-allowed !important;
+                    background-color: $color-disable;
+                }
+            }
+        }
     }
 }
