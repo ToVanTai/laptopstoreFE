@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import {numberWithComas} from "../../utils/utils"
 const Carts = () => {
+    const [cartsSelected,setCartsSelected] = useState([])
     let navigate = useNavigate();
     let roleId = useSelector(getRoleId);
     useEffect(() => {
@@ -16,11 +17,13 @@ const Carts = () => {
         }
     });
     let carts = useSelector(getCarts)
-    let cartQuantities = carts.reduce((result, item)=>{
-        return result+Number(item.quantity)
+    let cartQuantities = carts.reduce((result, cart)=>{
+        let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+        return indexFind===-1?result:result+Number(cart.quantity)
     },0)
-    let cartPrice = carts.reduce((result, item)=>{
-        return result+(Number(item.quantity)*Number(item.detail.newPrice))
+    let cartPrice = carts.reduce((result, cart)=>{
+        let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+        return indexFind===-1?result: result+(Number(cart.quantity)*Number(cart.detail.newPrice))
     },0)
     const dispatch = useDispatch()
     const handleDeleteCart = (productId, capacityId)=>{
@@ -46,6 +49,67 @@ const Carts = () => {
             dispatch(changeQuantitiesCart({productId, capacityId,carts,url,isIncrease}))
         }
     }
+    const handleToggleStatus = (productId, capacityId)=>{
+        let indexFind = cartsSelected.findIndex((cart)=>Number(cart.productId)===Number(productId)&&Number(cart.capacityId)===Number(capacityId))
+        if(indexFind===-1){//o tim thay
+            setCartsSelected(pre=>[...pre,{productId,capacityId}])
+        }else{//tim thay
+            setCartsSelected(pre=>{
+                let newCarts = pre.reduce((result, item,index)=>{
+                    if(index===indexFind){
+                        return result
+                    }else{
+                        return [...result,{...item}]
+                    }
+                },[])
+                return newCarts
+            })
+        }
+    }
+    const handleSelectedAll = ()=>{
+        //1 cái chưa checked=>check all
+        //hủy check all
+        let isNotChecked = carts.some(cart=>{
+            let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+            return indexFind===-1?true:false
+        })
+        if(isNotChecked){
+            setCartsSelected(()=>{
+                let newCarts = carts.reduce((result,item)=>{
+                    return [...result,{productId:item.productId, capacityId:item.capacityId}]
+                },[])
+                return newCarts
+            })
+        }else{
+            setCartsSelected([])
+        }
+    }
+    const isCheckedAll = ()=>{
+        let isNotChecked = carts.some(cart=>{
+            let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+            return indexFind===-1?true:false
+        })
+        return !isNotChecked
+    }
+    const handleBuy = ()=>{
+        if(cartsSelected.length===0){
+            alert("Vui lòng chọn sản phẩm!")
+        }else{
+            let cartsBuy = carts.reduce((result,cart)=>{
+                let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+                return indexFind===-1? result:[...result,cart]
+            },[])
+            let cartsRemain = carts.reduce((result,cart)=>{
+                let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+                return indexFind!==-1? result:[...result,cart]
+            },[])
+            console.log(cartsBuy);
+            console.log(cartsRemain);
+            // call api : đặt hàng và cập nhật giỏ hàng
+            //nếu chưa cập nhật thông tin =>alert
+            //cập nhật thông tin=> thành công và cập nhật giỏ hàng tiếp.
+        }
+    }
     return (
         <>
             <div>
@@ -53,7 +117,7 @@ const Carts = () => {
                 <div className="userCarts">
                     <div className="userCarts__header">
                         <div className="userCarts__header__left">
-                            <input type="checkbox" className="userCarts__checkbox" />
+                            <input type="checkbox" checked={isCheckedAll()} onChange={handleSelectedAll} className="userCarts__checkbox" />
                             Sản Phẩm
                         </div>
                         <div className="userCarts__header__right">
@@ -72,7 +136,7 @@ const Carts = () => {
                         </div>
                     </div>
                     <div className="userCarts__content">
-                        {carts.map((cart,index)=><Cart key={cart.capacityId} onChangeQuantities={handleChangeQuantity} onDeleteCart = {handleDeleteCart} data={cart}/>)}
+                        {carts.map(cart=><Cart key={cart.capacityId} onChangeQuantities={handleChangeQuantity} onToggleStatus={handleToggleStatus} onDeleteCart = {handleDeleteCart} data={cart} cartsSelected={cartsSelected}/>)}
                     </div>
                     <div className="userCarts__footer">
                         <div className="userCarts__footer__left">
@@ -89,7 +153,7 @@ const Carts = () => {
                                 {numberWithComas(cartPrice)}đ
                             </div>
                             <div className="userCarts__footer__right-buy">
-                                <button className="disable">Mua Hàng</button>
+                                <button className={cartsSelected.length===0?"disable":""} onClick={handleBuy}>Mua Hàng</button>
                             </div>
                         </div>
                     </div>

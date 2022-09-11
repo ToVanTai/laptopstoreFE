@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import {baseUrlImg} from "../../configs/configs"
 import { numberWithComas} from "../../utils/utils"
 
-const Cart = ({data,onDeleteCart,onChangeQuantities}) => {
+const Cart = ({data,onDeleteCart,onChangeQuantities,onToggleStatus,cartsSelected}) => {
+    let isCartChecked = cartsSelected.findIndex((cart)=>Number(cart.productId)===Number(data.productId)&&Number(cart.capacityId)===Number(data.capacityId))
     return (
         <div className="userCarts__item">
-            <input type="checkbox" className="userCarts__item-checkbox userCarts__checkbox"  />
+            <input type="checkbox" checked={isCartChecked===-1?false:true} onChange={()=>onToggleStatus(data.productId, data.capacityId)} className="userCarts__item-checkbox userCarts__checkbox"  />
             <Link to={"/product-detail/"+data.productId} className="userCarts__item-img">
                 <img src={baseUrlImg+data.detail.background} alt="" />
             </Link>
