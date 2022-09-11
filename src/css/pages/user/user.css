@@ -520,6 +520,116 @@
   background-color: #ccc;
 }
 
+.user__purchased__item {
+  background-color: #fff;
+  margin-top: 5px;
+  width: 100%;
+}
+.user__purchased__item__heading {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.user__purchased__item__heading-left {
+  font-size: 1.4rem;
+}
+.user__purchased__item__heading-right {
+  font-size: 1.3rem;
+  color: #26aa99;
+}
+.user__purchased__item__heading-right i {
+  padding-right: 10px;
+}
+.user__purchased__item__content {
+  padding: 5px 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.user__purchased__item__content__img {
+  display: block;
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+}
+.user__purchased__item__content__img img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+}
+.user__purchased__item__content__about-model {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  margin-right: 5px;
+  width: 300px;
+  font-size: 1.3rem;
+  line-height: 1.4rem;
+  height: 3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+@media only screen and (max-width: 576px) {
+  .user__purchased__item__content__about-model {
+    width: 180px;
+  }
+}
+.user__purchased__item__content__about-capacity {
+  font-size: 1.3rem;
+  color: #7d7d7d;
+  line-height: 0.4rem;
+}
+@media only screen and (max-width: 768px) {
+  .user__purchased__item__content__about-capacity {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+}
+.user__purchased__item__content__about-quantities {
+  font-size: 1.3rem;
+  color: #7d7d7d;
+}
+.user__purchased__item__content-price {
+  font-size: 1.4rem;
+  color: red;
+  margin-left: 50px;
+}
+@media only screen and (max-width: 768px) {
+  .user__purchased__item__content-price {
+    margin-left: 8px;
+  }
+}
+.user__purchased__item__footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  padding: 5px 0px;
+  padding-right: 10px;
+}
+.user__purchased__item__footer p {
+  font-size: 1.25rem;
+}
+.user__purchased__item__footer span {
+  font-size: 1.4rem;
+  color: red;
+}
+.user__purchased__item__footer button {
+  border: none;
+  outline: none;
+  background-color: #FDD922;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 5px 25px;
+  cursor: pointer;
+}
+
 .user__sidebar {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   list-style: none;
