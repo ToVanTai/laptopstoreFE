@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteCart,changeQuantitiesCart } from "./UserSlice";
+import { deleteCart,changeQuantitiesCart, updateCart } from "./UserSlice";
 import { useNavigate } from "react-router-dom";
 import { getRoleId,getCarts } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -95,19 +95,57 @@ const Carts = () => {
         if(cartsSelected.length===0){
             alert("Vui lòng chọn sản phẩm!")
         }else{
-            let cartsBuy = carts.reduce((result,cart)=>{
-                let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
-                return indexFind===-1? result:[...result,cart]
-            },[])
-            let cartsRemain = carts.reduce((result,cart)=>{
-                let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
-                return indexFind!==-1? result:[...result,cart]
-            },[])
-            console.log(cartsBuy);
-            console.log(cartsRemain);
-            // call api : đặt hàng và cập nhật giỏ hàng
-            //nếu chưa cập nhật thông tin =>alert
-            //cập nhật thông tin=> thành công và cập nhật giỏ hàng tiếp.
+            fetch(`${baseUrlApi}user.php`,{
+                method:"GET",
+                credentials:"include"
+            }).then(res=>res.json().then(res=>{
+                if(res.name===null||res.phone_number===null||res.email===null||res.address===null||res.name.length===0||res.phone_number.length===0||res.email.length===0||res.address.length===0){
+                    alert("Vui lòng cập nhật thông tin cá nhân!");
+                }else{
+                    let cartsBuy = carts.reduce((result,cart)=>{
+                        let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+                        return indexFind===-1? result:[...result,cart]
+                    },[])
+                    let cartsRemain = carts.reduce((result,cart)=>{
+                        let indexFind = cartsSelected.findIndex(item=>Number(cart.productId)===Number(item.productId)&&Number(cart.capacityId)===Number(item.capacityId))
+                        return indexFind!==-1? result:[...result,cart]
+                    },[])
+                    fetch(`${baseUrlApi}carts.php?crud_req=updateCarts`,{
+                        method:"POST",
+                        credentials:"include",
+                        body: JSON.stringify(cartsBuy)
+                    }).then(res=>{
+                        if(res.status===200||res.status===201){
+                            //callApi đặt hàng
+                            fetch(`${baseUrlApi}orders.php`,{
+                                method:"POST",
+                                credentials:"include"
+                            }).then(res=>{
+                                if(res.status===200||res.status===201){
+                                    alert("Đặt hàng thành công")
+                                    //call api đẩy cartRemain to global state
+                                    let url = `${baseUrlApi}carts.php?crud_req=updateCarts`
+                                    let dataBody = cartsRemain
+                                    function redirectPurchasedPage(){
+                                        navigate("../purchased");
+                                    }
+                                    dispatch(updateCart({url, dataBody,redirectPurchasedPage}))
+                                }else{
+                                    alert("Lỗi hệ thống")
+                                }
+                            })
+                        }else{
+                            alert("Lỗi hệ thống!")
+                        }
+                    })
+                }
+            }))
+            
+            //b0: call api xem thông tin user api/user.php// name, phonenumber, address, email->trống=>thông báo
+            //B1: đẩy cartsBuy lên session và không làm thay đổi global store.
+            //B2: callApi đặt hàng
+            //B3: callApi cập nhật giỏ hàng=>thông báo thành công
+            //b4: chuyển tra trang đã đặt hàng
         }
     }
     return (

@@ -58,6 +58,11 @@ let userSlice = createSlice({
                     state.carts = action.payload
                 }
             })
+            .addCase(updateCart.fulfilled,(state, action)=>{
+                if(action.payload!==null){
+                    state.carts = action.payload
+                }
+            })
             ;
     },
 });
@@ -235,5 +240,30 @@ const changeQuantitiesCart = createAsyncThunk("user/changeQuantitiesCart",async 
     })
     return dataRes
 })
-export { getUserDataAfterLoged, setUserDataAfterLogout, getUserDataOnFirstLoad, addToCart, deleteCart,changeQuantitiesCart };
+const updateCart = createAsyncThunk("user/updateCartAfterBuyed",async (data)=>{
+    let dataRes = null;
+    await new Promise((resolve, reject) => {
+        fetch(data.url, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(data.dataBody),
+        }).then((res) => {
+            if (res.status === 200 || res.status === 201) {
+                res.text().then((res) => {
+                        dataRes = JSON.parse(res)
+                        data.redirectPurchasedPage()
+                        resolve()
+                    }
+                );
+            } else {
+                res.text().then((res) => {
+                    alert(res) 
+                    reject()
+                });
+            }
+        }).catch(()=>reject());
+    })
+    return dataRes
+})
+export { getUserDataAfterLoged, setUserDataAfterLogout, getUserDataOnFirstLoad, addToCart, deleteCart,changeQuantitiesCart,updateCart };
 export default userSlice;
