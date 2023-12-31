@@ -2,7 +2,7 @@ import React, { useLayoutEffect} from "react";
 import { Outlet } from "react-router-dom";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavBar";
 import Overlay from "../components/Overlay";
 import Sidebar from "../components/Sidebar";
 import "../css/pages/home/home.css";
