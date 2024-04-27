@@ -19,7 +19,7 @@ const ChangePassword = () => {
     const dispatch = useDispatch()
     const handleChangePassword = ()=>{
         let formData = new FormData(registerForm.current)
-        fetch(`${baseUrlApi}user.php`,{
+        fetch(`${baseUrlApi}usernew.php`,{
             method: "POST",
             credentials: "include",
             body: formData
@@ -51,12 +51,12 @@ const ChangePassword = () => {
                         message: "Dài tối thiểu 5 ký tự"
                     },
                     maxLength:{
-                        value: 18,
-                        message: "Dài tối đa 18 ký tự"
+                        value: 50,
+                        message: "Dài tối đa 50 ký tự"
                     },
                     pattern:{
                         value: accountReg,
-                        message:"Tên tài khoản chỉ bao gồm số và chữ thường!"
+                        message:"Tên tài khoản phải là email!"
                     }
                 })} type="text" className={errors.account ? 'user__input show':'user__input'} placeholder="Nhập tài khoản hiện tại" id="" />
                 <span className="user__input__field__icon"><i className='bx bx-user'></i></span>

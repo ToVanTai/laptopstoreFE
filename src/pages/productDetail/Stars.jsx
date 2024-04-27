@@ -1,5 +1,5 @@
 import React from "react";
-
+/**hiển thị các ngôi sao... */
 const Stars = ({ count }) => {
     return (
         <div className="stars__wrapper">

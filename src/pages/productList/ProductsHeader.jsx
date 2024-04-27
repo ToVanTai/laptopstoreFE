@@ -1,5 +1,5 @@
 import React from "react";
-
+/**mới chỉ làm được thay đổi số cột hiển thị/ 1 dòng */
 const ProductsHeader = ({onChangeQuantityColumns, columns}) => {
     return <div className="productsHeader__container">
         <div className="productsHeader__heading">

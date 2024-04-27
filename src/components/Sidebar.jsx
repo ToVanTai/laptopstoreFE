@@ -1,3 +1,6 @@
+/**
+ * phần sidebar của chương trình
+ */
 import React, {useState} from "react";
 import { logo } from "../access/data/data";
 import { Link,useNavigate } from "react-router-dom";
@@ -11,41 +14,47 @@ import { getRoleId, getBrands, getCarts } from "../redux/selectors";
 import { baseUrlApi } from "../configs/configs";
 import {generateQuantityCart} from "../utils/utils"
 const SideBar = () => {
-    let navigate = useNavigate()
-    const sidebarStatus = useSelector(sidebarStatusSelector);
+    let navigate = useNavigate();//chuyển trang khi cần 
+    const sidebarStatus = useSelector(sidebarStatusSelector);//trạng thái đóng, mở của slide bar
     const dispatch = useDispatch();
-    const roleId = useSelector(getRoleId);
-    const brands = useSelector(getBrands);
-    const carts = useSelector(getCarts);
-    const handleCloseSideBar = () => {
+    const roleId = useSelector(getRoleId);//roleId của người dùng để check chuyển sang trang admin
+    const brands = useSelector(getBrands);//lấy ra banner chạy chạy
+    const carts = useSelector(getCarts);//lấy các thông tin giỏ hàng
+    const handleCloseSideBar = () => {//tắt, bật sideBar
         dispatch(sideBarSlice.actions[CLOSE_SIDEBAR]());
         dispatch(overlaySlice.actions[CLOSE_OVERLAY]());
     };
-    const handleLogout = () => {
-        dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`));
+    const handleLogout = () => {//xét lại giá trị mặc định của user...giỏ hàng, tt user, loại người dùng
+        dispatch(setUserDataAfterLogout(`${baseUrlApi}usernew.php`));
     };
-    const [searchText, setSearchText] = useState("")
-    const [isShowSearchInput, setIsShowSearchInput] = useState(false)
+    const [searchText, setSearchText] = useState("")//chuỗi tìm kiếm
+    const [isShowSearchInput, setIsShowSearchInput] = useState(false)//trạng thái đóng, mở ô tìm kiếm
     let params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-    const handleToggleSearchInputStatus = ()=>{
+    const handleToggleSearchInputStatus = ()=>{//đóng, mở ô tìm kiếm
         setIsShowSearchInput(prev=>!prev)
     }
-    const handleChangeSearchInput = (event)=>{
+    const handleChangeSearchInput = (event)=>{//xét lại value biến tìm kiếm
         setSearchText(event.target.value)
     }
+    /**
+     * khi ấn vào nút tìm kiếm
+     */
     const handleSubmitSearchInput = (event)=>{
         if(event.key==="Enter"&&searchText.trim().length>0){
             if(params["category-name"]||params["search"]){
-                window.scrollTo(0,0)
+                window.scrollTo(0,0)//2 trang này không có slide chạy nên cuộn lên đầu
             }else{
                 if(document.documentElement.clientWidth<=768){
+                    //giao diện mobile thì cuộn lên dưới navbar
                     window.scrollTo(0,(document.documentElement.clientWidth/2)+78)
                 }else{
+                    //giao diện bth thì cuộn xuống dưới slide chạy
                     window.scrollTo(0,((document.documentElement.clientWidth - 270) / 2))
                 }
             }
             setSearchText("")
             setIsShowSearchInput(false)
+            //chuyển sang trang tìm kiếm sản phẩm => nên vẫn ở searchinput
             navigate("/search-products?search="+searchText.trim())
         }
     }

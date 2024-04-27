@@ -91,6 +91,10 @@ const getUserDataAfterLoged = createAsyncThunk(
         return dataRes;
     }
 );
+
+/**
+ * xét lại giá trị mặc định của user...giỏ hàng, tt user, loại người dùng
+ */
 const setUserDataAfterLogout = createAsyncThunk("user/setUserDataAfterLogout", async (url) => {
     let dataRes = true;
     await new Promise((resolve, reject) => {
@@ -113,6 +117,8 @@ const setUserDataAfterLogout = createAsyncThunk("user/setUserDataAfterLogout", a
     });
     return dataRes;
 })
+
+/**lấy thông tin giở hàng, role_id để chuyển sang trang admin, thông tin user */
 const getUserDataOnFirstLoad = createAsyncThunk("user/getUserDataOnFirstLoad", async (url) => {
     let dataRes = null;
     await new Promise((resolve, reject) => {

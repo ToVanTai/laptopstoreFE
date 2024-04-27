@@ -6,6 +6,7 @@ import { getBrands } from "../../redux/selectors";
 import { useSelector } from "react-redux";
 import { Autoplay } from "swiper";
 import "swiper/css";
+/**trang slide chạy chạy */
 const Slider = () => {
     let brands = useSelector(getBrands);
 

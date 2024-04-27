@@ -7,7 +7,7 @@ import {overlayStatusSelector} from "../redux/selectors"
 const Overlay = () => {
     const overlayStatus = useSelector(overlayStatusSelector)
     const dispatch = useDispatch()
-    const handleClickOverlay = ()=>{
+    const handleClickOverlay = ()=>{//tắt, bật sideBar
         dispatch(sideBarSlice.actions[CLOSE_SIDEBAR]())
         dispatch(overlaySlice.actions[CLOSE_OVERLAY]())
     }

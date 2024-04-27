@@ -17,7 +17,7 @@ const About = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
     const handleChangeAbout = ()=>{
         let formData = new FormData(changeAboutForm.current)
-        fetch(`${baseUrlApi}user.php`,{
+        fetch(`${baseUrlApi}usernew.php`,{
             method: "POST",
             credentials: "include",
             body: formData
@@ -39,7 +39,7 @@ const About = () => {
     const [dataUser, setDataUser] = useState(null);
     useLayoutEffect(() => {
         if (roleId !== null) {
-            fetch(`${baseUrlApi}user.php`, {
+            fetch(`${baseUrlApi}usernew.php`, {
                 method: "GET",
                 credentials: "include",
             }).then((res) => {
@@ -84,10 +84,6 @@ const About = () => {
                                     />
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{data.email}</td>
-                            </tr>
                         </tbody>
                     </table>
                     <div className="user__about__buttons">
@@ -115,8 +111,8 @@ const About = () => {
                                     message: "Dài tối thiểu 5 ký tự"
                                 },
                                 maxLength:{
-                                    value: 18,
-                                    message: "Dài tối đa 18 ký tự"
+                                    value: 50,
+                                    message: "Dài tối đa 50 ký tự"
                                 },
                                 pattern:{
                                     value: nameReg,
@@ -157,7 +153,7 @@ const About = () => {
                             <span className="user__input__field__icon"><i className='bx bxs-image'></i></span>
                             <span className="user__input__field__error show"></span>
                         </div>
-                        <div className="user__input__field">
+                        {/* <div className="user__input__field">
                             <input type="email" {...register("email",{
                                 required: "Không được bỏ trống!",
                                 pattern:{
@@ -167,7 +163,7 @@ const About = () => {
                             })} className={errors.email?"user__input show":"user__input"} placeholder="Email của bạn" defaultValue={dataUser.email} />
                             <span className="user__input__field__icon"><i className='bx bx-envelope'></i></span>
                             <span className={errors.email?"user__input__field__error show":"user__input__field__error"}>{errors.email?errors.email.message:''}</span>
-                        </div>
+                        </div> */}
                         <input type="hidden" name="crud_req" value="update" />
                         <div className="user__about__buttons">
                         <button className="user__btn__action small active" type="submit">

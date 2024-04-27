@@ -1,5 +1,5 @@
 import React from 'react'
-
+/**phần chân trang ở container */
 const Footer = () => {
   return (
     <div className='userPage__footer'>

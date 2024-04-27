@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from "./redux/store";
 import Router from './router/Router';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+/**khởi cấu hình store cho cả chương trình */
 root.render(
 //   <React.StrictMode>
     <Provider store={store}>

@@ -1,3 +1,6 @@
+/**
+*các hàm để css grid
+*/
 @use "./../abstracts/" as *;
 .row::after{
     content:"";

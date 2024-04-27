@@ -20,16 +20,17 @@ const Login = () => {
     const handleLogin = ()=>{
         
         let formData = new FormData(loginForm.current)
-        fetch(`${baseUrlApi}user.php`,{
+        fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
             credentials: 'include',
             body: formData
         }).then(res=>{
             if(res.status===200||res.status===201){
-                res.text().then(res=>{
-                    if(Number(res)===2){
+                res.json().then(res=>{
+                    let {AccessToken,RefreshToken,RoleId,UserId} = res;
+                    if(Number(RoleId)===2){
                         alert("Website xây dựng chức năng cho admin😪")
-                    }else if(Number(res)===1){
+                    }else if(Number(RoleId)===1){
                         dispatch(getUserDataAfterLoged(`${baseUrlApi}checklogin.php`))
                     }
                 })
@@ -53,12 +54,12 @@ const Login = () => {
                         message: "Dài tối thiểu 5 ký tự"
                     },
                     maxLength:{
-                        value: 18,
-                        message: "Dài tối đa 18 ký tự"
+                        value: 50,
+                        message: "Dài tối đa 50 ký tự"
                     },
                     pattern:{
                         value: accountReg,
-                        message:"Tên tài khoản chỉ bao gồm số và chữ thường!"
+                        message:"Tên tài khoản phải là email!"
                     }
                 })} type="text" className={errors.account ? 'user__input show':'user__input'} placeholder="Nhập tài khoản" id="" />
                 <span className="user__input__field__icon"><i className='bx bx-user'></i></span>

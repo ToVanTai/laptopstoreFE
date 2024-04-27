@@ -95,7 +95,7 @@ const Carts = () => {
         if(cartsSelected.length===0){
             alert("Vui lòng chọn sản phẩm!")
         }else{
-            fetch(`${baseUrlApi}user.php`,{
+            fetch(`${baseUrlApi}usernew.php`,{
                 method:"GET",
                 credentials:"include"
             }).then(res=>res.json().then(res=>{
@@ -141,7 +141,7 @@ const Carts = () => {
                 }
             }))
             
-            //b0: call api xem thông tin user api/user.php// name, phonenumber, address, email->trống=>thông báo
+            //b0: call api xem thông tin user api/usernew.php// name, phonenumber, address, email->trống=>thông báo
             //B1: đẩy cartsBuy lên session và không làm thay đổi global store.
             //B2: callApi đặt hàng
             //B3: callApi cập nhật giỏ hàng=>thông báo thành công

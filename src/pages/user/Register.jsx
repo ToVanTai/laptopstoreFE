@@ -17,7 +17,7 @@ const Register = () => {
     
     const handleLogin = ()=>{
         let formData = new FormData(loginForm.current)
-        fetch(`${baseUrlApi}user.php`,{
+        fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
             credentials: 'include',
             body: formData
@@ -52,13 +52,13 @@ const Register = () => {
                                 message: "Dài tối thiểu 5 ký tự",
                             },
                             maxLength: {
-                                value: 18,
-                                message: "Dài tối đa 18 ký tự",
+                                value: 50,
+                                message: "Dài tối đa 50 ký tự",
                             },
                             pattern: {
                                 value: accountReg,
                                 message:
-                                    "Tên tài khoản chỉ bao gồm số và chữ thường!",
+                                    "Tên tài khoản phải là email!",
                             },
                         })}
                         type="text"

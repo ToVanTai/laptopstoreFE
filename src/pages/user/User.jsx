@@ -11,7 +11,7 @@ const User = () => {
     let roleId = useSelector(getRoleId)
     const dispatch = useDispatch()
     let handleLogout = ()=>{
-        dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`))
+        dispatch(setUserDataAfterLogout(`${baseUrlApi}usernew.php`))
     }
     let renderNavLinks = (roleId)=>{
         if(roleId===null){

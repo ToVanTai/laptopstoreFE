@@ -1,3 +1,6 @@
+/**
+ * @obsolete không dùng hàm này
+ */
 let httpGetAsync = function(url, method, data=null, resolve, reject, waiting=null){
     let http = new XMLHttpRequest();
     http.onreadystatechange=function(){

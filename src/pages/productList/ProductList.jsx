@@ -1,3 +1,6 @@
+/**
+ * trang danh sách sản phẩmn
+ */
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { baseUrlApi, baseUrlImg } from "../../configs/configs";
@@ -5,6 +8,7 @@ import ProductItem from "./ProductItem";
 import Pagination from "@mui/material/Pagination";
 import ProductsHeader from "./ProductsHeader"
 const ProductList = () => {
+    /**generate đường dẫn url */
     let generateUrlParams = (params) => {
         let result = "";
         let page, limit;
@@ -19,11 +23,12 @@ const ProductList = () => {
         }
         return result;
     };
+    /**generate param khi thay đổi số trang*/
     let generateParams = (params) => {
         let result = {};
         let page, limit;
-        page = params.page ? params.page : "1";
-        limit = params.limit ? params.limit : "8";
+        page = params.page ? params.page : "1";//trang thứ mấy
+        limit = params.limit ? params.limit : "8";//mấy bản ghi trên 1 trang
         if (page !== "1") {
             result.page = page;
         }
@@ -45,18 +50,21 @@ const ProductList = () => {
     };
     const [searchParams, setSearchParams] = useSearchParams();
     const [productsData, setProductsData] = useState({});
-    const [productsColumns, setProductsColumns] = useState(4);//for products header
+    const [productsColumns, setProductsColumns] = useState(4);//hiển thị bao nhiêu cột trên 1 dòng
 
+    /**callback function để xét lại số column hiển thị*/
     const onChangeQuantityColumns = (quantity)=>{
         setProductsColumns(quantity);
     }
-
+    //định nghĩa các tham số param cho tìm kiếm, phân trang
     let params = Object.fromEntries(searchParams.entries());
     let [page, setPage] = useState(params.page);
     let [limit, setLimit] = useState(params.limit);
     let [categoryName, setCategoryName] = useState(params["category-name"]);
     let [searchName, setSearchName] = useState(params["search"]);
+
     useEffect(() => {
+        /**sau khi component render xong thì xét lại các param này */
         if (page !== params.page) {
             setPage(params.page);
         }
@@ -71,6 +79,9 @@ const ProductList = () => {
         }
     });
     useEffect(() => {
+        /**
+         * gọi api để lấy danh sách product khi thay đổi số bản ghi / trang....
+         */
         fetch(`${baseUrlApi}products.php${generateUrlParams(params)}`, {
             method: "GET",
             credentials: "include",
@@ -82,7 +93,7 @@ const ProductList = () => {
             }
         });
     }, [page, limit, categoryName, searchName]);
-    useEffect(()=>{
+    useEffect(()=>{//cuộn lên đầu trang do thằng này nó không có slide hay navbar
         window.scrollTo(0,0)
     },[])
     const handleChangePagination = (event, value) => {

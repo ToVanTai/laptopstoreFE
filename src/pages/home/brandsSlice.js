@@ -17,6 +17,8 @@ let brandsSlice = createSlice({
     }
     
 })
+
+/**lấy thông tin slide chạy .... */
 const getBrandsDataOnFirstLoad = createAsyncThunk("brands/getBrandsDataOnFirstLoad", async(url)=>{
     let dataRes = null;
     await new Promise((resolve, reject)=>{
