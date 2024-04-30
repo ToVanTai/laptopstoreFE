@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getRoleId } from "../../redux/selectors";
 import PurchasedItem from "./PurchasedItem";
 import { baseUrlApi } from "../../configs/configs";
+import {getOptionsv2, getOptions} from '../../axios/baseRequest';
 const Purchased = () => {
     let [orders, setOrders] = useState([])
     let navigate = useNavigate();
@@ -14,10 +15,7 @@ const Purchased = () => {
         }
     });
     useEffect(()=>{
-        fetch(`${baseUrlApi}orders.php`,{
-            method:"GET",
-            credentials:"include"
-        }).then(res=>res.json().then(res=>setOrders(res)))
+        fetch(`${baseUrlApi}orders.php`,getOptions('GET')).then(res=>res.json().then(res=>setOrders(res)))
     },[])
     return (
         <div className="user__purchased__container">

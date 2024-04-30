@@ -97,7 +97,7 @@ const Carts = () => {
         }else{
             fetch(`${baseUrlApi}usernew.php`,{
                 method:"GET",
-                credentials:"include"
+                // credentials:"include"
             }).then(res=>res.json().then(res=>{
                 if(res.name===null||res.phone_number===null||res.email===null||res.address===null||res.name.length===0||res.phone_number.length===0||res.email.length===0||res.address.length===0){
                     alert("Vui lòng cập nhật thông tin cá nhân!");
@@ -112,14 +112,14 @@ const Carts = () => {
                     },[])
                     fetch(`${baseUrlApi}carts.php?crud_req=updateCarts`,{
                         method:"POST",
-                        credentials:"include",
+                        // credentials:"include",
                         body: JSON.stringify(cartsBuy)
                     }).then(res=>{
                         if(res.status===200||res.status===201){
                             //callApi đặt hàng
                             fetch(`${baseUrlApi}orders.php`,{
                                 method:"POST",
-                                credentials:"include"
+                                // credentials:"include"
                             }).then(res=>{
                                 if(res.status===200||res.status===201){
                                     alert("Đặt hàng thành công")

@@ -86,7 +86,8 @@ const setUserDataAfterLogout = createAsyncThunk("user/setUserDataAfterLogout", a
         fetch(url, getOptions('POST'))
             .then((res) => {
                 if (res.status === 200) {
-                    resolve()
+                    resolve();
+                    localStorage.removeItem('context')
                 } else {
                     dataRes = false
                     reject()
@@ -107,8 +108,9 @@ const getUserDataOnFirstLoad = createAsyncThunk("user/getUserDataOnFirstLoad", a
         
         fetch(url, getOptions('GET'))
             .then((res) => {
-                if (res.status === 203) {
-                } else {
+                if (res.status === 401) {
+                    //xử lý hết hạn token
+                } else if(res.status === 200) {
                     res.text().then((res) => {
                         dataRes = JSON.parse(res);
                         resolve();

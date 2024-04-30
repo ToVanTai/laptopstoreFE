@@ -1,4 +1,4 @@
-import React, { useLayoutEffect} from "react";
+import React, { useLayoutEffect, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
@@ -10,8 +10,30 @@ import { useDispatch } from "react-redux";
 import { getUserDataOnFirstLoad } from "../pages/user/UserSlice";
 import { getBrandsDataOnFirstLoad } from "../pages/home/brandsSlice";
 import { baseUrlApi } from "../configs/configs";
+import {getOptionsv2, getOptions} from '../axios/baseRequest';
 const App = () => {
     const dispatch = useDispatch();
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            //kiểm tra có context hay không
+            let contextJSON = localStorage.getItem("context");
+            let context = null;
+            if(contextJSON){
+                context = JSON.parse(contextJSON);
+            }
+            if(context){
+                fetch(`${baseUrlApi}usernew.php?refresh-token=true`, getOptions('GET'))
+                .then(res => res.json().then(res => {
+                    localStorage.setItem('context', JSON.stringify(res));
+                }));
+            }
+        }, 60 * 1000); //1 phút
+
+        return () => {
+            // Xóa interval khi component bị unmount
+            clearInterval(intervalId);
+        };
+    }, []);
     /**
      * gọi 1 lần duy nhất dùng để kiểm tra login, và lấy các slide chạy.....
      */

@@ -1,3 +1,6 @@
+/**
+ * có application/json
+ */
 const getOptions = function(method, body = undefined){
     let contextJSON = localStorage.getItem("context");
     let context = null;
@@ -15,7 +18,7 @@ const getOptions = function(method, body = undefined){
     }
 }
 /**
- * 0 có applicationjson
+ * 0 có applicationjson, sử dụng data là form 
  */
 const getOptionsv2 = function(method, body = undefined){
     let contextJSON = localStorage.getItem("context");
