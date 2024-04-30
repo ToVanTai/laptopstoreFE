@@ -7,28 +7,34 @@ import sideBarSlice from "./SidebarSlice";
 import userSlice, { setUserDataAfterLogout } from "../pages/user/UserSlice";
 import { getRoleId, getCarts } from "../redux/selectors";
 import { baseUrlApi } from "../configs/configs";
-
+import {generateQuantityCart} from "../utils/utils"
+/**phần navbar ngang ngang hiện ở giao diện mobile hoặc tablet
+ * logic giống với sideBar
+*/
 const Navbar = () => {
     let navigate = useNavigate()
     let dispatch = useDispatch();
+    /**dùng để mở side bar */
     const handleOpenSideBar = () => {
         dispatch(overlaySlice.actions[OPEN_OVERLAY]());
         dispatch(sideBarSlice.actions[OPEN_SIDEBAR]());
     };
-    const [searchText, setSearchText] = useState("")
-    const [isShowSearchInput, setIsShowSearchInput] = useState(false)
-    const roleId = useSelector(getRoleId);
-    const carts = useSelector(getCarts)
+    const [searchText, setSearchText] = useState("")//value tìm kiếm
+    const [isShowSearchInput, setIsShowSearchInput] = useState(false)//trạng thái đóng, mở ô tìm kiếm
+    const roleId = useSelector(getRoleId);//roleId của người dùng để check chuyển sang trang admin
+    const carts = useSelector(getCarts);//lấy các thông tin giỏ hàng
     let params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
-    const handleLogout = () => {
-        dispatch(setUserDataAfterLogout(`${baseUrlApi}user.php`));
-    };
-    const handleToggleSearchInputStatus = ()=>{
+    // const handleLogout = () => {
+    //     dispatch(setUserDataAfterLogout(`${baseUrlApi}usernew.php`));
+    // };
+    const handleToggleSearchInputStatus = ()=>{//đóng, mở ô tìm kiếm
         setIsShowSearchInput(prev=>!prev)
     }
+    //xét lại value biến tìm kiếm
     const handleChangeSearchInput = (event)=>{
         setSearchText(event.target.value)
     }
+    //xét lại value biến tìm kiếm
     const handleSubmitSearchInput = (event)=>{
         if(event.key==="Enter"&&searchText.trim().length>0){
             if(params["category-name"]||params["search"]){
@@ -62,7 +68,7 @@ const Navbar = () => {
                         <Link to="/user/carts">
                             <i className="bx bx-cart"></i>
                             <span className="sidebar__actions__cart-quantity">
-                                {carts.length}
+                                {generateQuantityCart(carts)}
                             </span>
                         </Link>
                     </li>
@@ -71,7 +77,7 @@ const Navbar = () => {
                             <i className="bx bx-user-circle"></i>
                         </Link>
                     </li>
-                    {roleId !== null ? (
+                    {/* {roleId !== null ? (
                         <li>
                             <i
                                 className="bx bx-log-out"
@@ -80,7 +86,7 @@ const Navbar = () => {
                         </li>
                     ) : (
                         ""
-                    )}
+                    )} */}
                 </ul>
             </div>
         </div>

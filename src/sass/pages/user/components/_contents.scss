@@ -219,3 +219,356 @@
         width: 100%;
     }
 }
+//for carts
+.userCarts{
+    width: 100%;
+    @include mobile{
+        width: 100vw;
+    }
+    &__checkbox{
+        margin-right: 15px;
+        position: relative;
+        width: 13px;
+        height: 13px;
+        border: 1px solid $text-color-second;
+        @include flex(center, center);
+        appearance: none;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 2px;
+        @include tablet{
+            margin-left: 5px;
+        }
+        &::before{
+            content: "✔";
+            position: absolute;
+            font-family: boxicons;
+            font-size: 1.2rem;
+            color: $color-white;
+            display: none;
+        }
+    }
+    &__checkbox:checked{
+        background-color: #ee4d2d;
+        border-color: #ee4d2d;
+        &::before{
+            display: block;
+        }
+    }
+
+    &__header{
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        background-color: $color-white;
+        box-shadow: 0px -1px 1px rgba(0,0,0,0.5) inset;
+        padding: 10px 10px 15px 15px;
+        @include smallDevice{
+            padding: 10px 10px;
+        }
+        margin-bottom: 5px;
+        @include flex(space-between, center);
+        font-size: 1.3rem;
+        &__left{
+            @include flex(flex-start, center);
+        }
+        &__right{
+            @include flex(flex-end, center);
+            font-size: 1.2rem;
+            color: $text-color-second;
+            &-item{
+                padding: 0px 14px;
+                &:last-child{
+                    padding: 0px;
+                }
+            }
+            @include smallDevice{
+                display: none;
+            }
+        }
+    }
+    &__content{
+        height: 271px;
+        position: relative;
+        overflow-y: auto;
+        background-color: $color-white;
+    }
+    &__content::-webkit-scrollbar{
+        @include smallDevice{
+            display: none;
+        }
+        width: 5px;
+        background-color: transparent;
+    }
+    &__content::-webkit-scrollbar-thumb{
+        border-radius: 5px;
+        background-color: $text-color-primary;
+    }
+    &__item{
+        margin: 5px 5px 0px 5px;
+        @include mobile{
+            margin: 0;
+            margin-top: 5px;
+            padding: 5px;
+        }
+        border-bottom: 1px solid $color-disable;
+        @include flex(space-between, center);
+        padding: 10px 0px;
+        &-checkbox{
+            margin: 0px 5px 0px 10px;
+            @include mobile{
+                margin: 0;
+                margin-left: 5px;
+            }
+        }
+        &-img{
+            display: block;
+            margin-left: 5px;
+            @include mobile{
+                margin-left: 5px;
+            }
+            img{
+                display: block;
+                width: 40px;
+                height: 40px;
+                @include mobile{
+                    width: 30px;
+                    height: 30px;
+                }
+                object-fit: cover;
+            }
+        }
+        &-name{
+            text-decoration: none;
+            color: $text-color;
+            display: block;
+            margin: 0px 5px 0px 10px;
+            width: 198px;
+            font-size: 1.3rem;
+            line-height: 1.5rem;
+            height: 3rem;
+            @include mobile{
+                margin-left: 5px;
+                width: 105px;
+                font-size: 1.15rem;
+            }
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-transform: lowercase;
+        }
+        &-category{
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            color: $text-color-second;
+            @include mobile{
+                font-size: 1.1rem;
+            }
+        }
+        &__price{
+            margin: 0px 8px;
+            @include mobile{
+                margin: 0 0 0 5px;
+            }
+            color: $text-color-second;
+            font-size: 1.15rem;
+            &-old{
+                text-decoration: line-through;
+            }
+            &-new{
+                color: red;
+            }
+        }
+        &-delete{
+            transition: all 0.3s ease;
+            cursor: pointer;
+            &:hover{
+                color: red;
+            }
+        }
+        &__quantities{
+            margin: 0px 10px;
+            display: flex;
+            @include mobile{
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin: 0px 5px;
+            }
+            &-decrease,
+            &-quantities,
+            &-crease{
+                transition: all 0.3s ease;
+                width: 18px;
+                height: 18px;
+                @include flex(center, center);
+                border: 1px solid $color-disable;
+                font-size: 1.2rem;
+                color: $text-color-second;
+                cursor: pointer;
+            }
+            &-quantities{
+                cursor: default;
+                width: 35px;
+                border-left-color: transparent;
+                border-right-color: transparent;
+                @include mobile{
+                    width: 18px;
+                    border: 1px solid $color-disable;
+                    border-top-color: transparent;
+                    border-bottom-color: transparent;
+                }
+            }
+            &-decrease:hover,
+            &-crease:hover{
+                border-color: $text-color;
+                color: $text-color;
+            }
+            &-decrease.disable,
+            &-crease.disable{
+                border-color: $color-disable !important;
+                color: $text-color-second !important;
+                cursor: not-allowed;
+            }
+        }
+    }
+    &__footer{
+        margin-top: 5px;
+        background-color: $color-white;
+        padding: 10px 15px;
+        @include mobile{
+            padding: 10px;
+        }
+        font-size: 1.3rem;
+        @include flex(space-between, center);
+        &__right{
+            @include flex(flex-end, center);
+            &-title, &-quantities,&-buy, &-price{
+                margin-left: 5px;
+            }
+            &-price{
+                color: red;
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            &-buy{
+                button{
+                    border: none;
+                    outline: none;
+                    background-color: red;
+                    color:$color-white;
+                    font-size: 1.1rem;
+                    padding: 5px 25px;
+                    cursor: pointer;
+                }
+                button.disable{
+                    cursor: not-allowed !important;
+                    background-color: $color-disable;
+                }
+            }
+        }
+    }
+}
+//for purchased
+.user__purchased__item{
+    background-color: $color-white;
+    margin-top: 5px;
+    width: 100%;
+    &__heading{
+        padding: 8px;
+        border-bottom: 1px solid $color-disable;
+        @include flex(space-between, center);
+        &-left{
+            font-size: 1.4rem;
+        }
+        &-right{
+            font-size: 1.3rem;
+            color: #26aa99;
+            i{
+                padding-right: 10px;
+            }
+        }
+    }
+    &__content{
+        padding: 5px 10px;
+        border-bottom: 1px solid $color-disable;
+        @include flex(flex-start, center);
+        &__img{
+            display: block;
+            width: 45px;
+            height: 45px;
+            margin-right: 10px;
+            img{
+                width: 45px;
+                height: 45px;
+                object-fit: cover;
+            }
+        }
+        &__about{
+            &-model{
+                text-decoration: none;
+                color: #000;
+                display: block;
+                margin-right: 5px;
+                width: 300px;
+                font-size: 1.3rem;
+                line-height: 1.4rem;
+                height: 3rem;
+                @include mobile{
+                    width: 180px;
+
+                }
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+            &-capacity{
+                font-size: 1.3rem;
+                color: $text-color-second;
+                line-height: 0.4rem;
+                @include smallDevice{
+                    font-size: 1.2rem;
+                    line-height: 1.4rem;
+                }
+            
+            }
+            &-quantities{
+                font-size: 1.3rem;
+                color: $text-color-second;
+            }
+        }
+        &-price{
+            font-size: 1.4rem;
+            color: red;
+            margin-left: 50px;
+            @include smallDevice{
+                margin-left: 8px;
+            }
+        }
+    }
+    &__footer{
+        @include flex(center, flex-end);
+        flex-direction: column;
+        padding: 5px 0px;
+        padding-right: 10px;
+        p{
+            font-size: 1.25rem;
+        }
+        span{
+            font-size: 1.4rem;
+            color: red;
+        }
+        button{
+            border: none;
+            outline: none;
+            background-color: $text-color-primary;
+            color: $color-white;
+            font-size: 1.1rem;
+            padding: 5px 25px;
+            cursor: pointer;
+        }
+    }
+}

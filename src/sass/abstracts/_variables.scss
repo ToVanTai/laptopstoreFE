@@ -1,7 +1,9 @@
+/*lưu các biến dùng chung để css*/
 $text-color: #000;
 $text-color-second: #7d7d7d;
 $color-disable: #ccc;
 $border-color: #f7f7f7;
+$background-color-third: #f2f2f2;
 $background-color: #fff;
 $background-color-second: #f7f7f7;
 $text-color-primary-second:#014693;
@@ -9,7 +11,7 @@ $text-color-primary:#FDD922;
 $color-white: #fff;
 $color-black: #000;
 $sidebar-width: 290px;
-$navbar-height: 78px;
+$navbar-height: 60px;//78
 $userSidebarItemWidth: 115px;
 $userSidebarItemHeight: 70px;
 $xs-width:576px;
@@ -25,6 +27,8 @@ $p-5: 5px;
 $p-10-5: 10px 5px;
 $p-5-10: 5px 10px;
 $p-10-20: 10px 20px;
+$p-40-10: 40px 10px;
+$p-20-10: 20px 10px;
 $m-t-20: 20px;
 $m-t-10: 10px;
 $m-20-0: 20px 0px;

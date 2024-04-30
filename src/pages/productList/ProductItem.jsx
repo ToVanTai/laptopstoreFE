@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom'
 import {baseUrlImg} from "../../configs/configs"
 import {product1, saleIcon} from "../../access/data/data"
-import {numberWithComas, formatString} from "../../utils/utils"
-const ProductItem = ({data}) => {
+import {numberWithComas, formatString, generateNewPrice, generateOldPrice} from "../../utils/utils"
+const ProductItem = ({data,columns}) => {
     return (
-        <div className="col col-xs-6 col-sm-6 col-md-6 col-lg-3">
+        <div className={columns===4?"col col-xs-6 col-sm-6 col-md-6 col-lg-3":"col col-xs-6 col-sm-6 col-md-6 col-lg-6"}>
             <div className={Number(data.discount)!==0?"productList__item discount":"productList__item"}>{/* discount */}
             <Link to={"/product-detail/"+data.id} className="productList__item__link">
                 <div className="productList__item__link-img">
@@ -35,10 +35,10 @@ const ProductItem = ({data}) => {
                     {formatString(data.model)}
                 </p>
                 <p className="productList__item__about__price-old">
-                    {Number(data.discount)!==0?numberWithComas(data.price):""}<u>đ</u>
+                    {generateOldPrice(data.price, data.discount)}<u>đ</u>
                 </p>
                 <p className="productList__item__about__price-new">
-                    {Number(data.discount)!==0? numberWithComas(Number(data.price)*(100 - Number(data.discount))/100):numberWithComas(data.price)}<u>đ</u>
+                    {generateNewPrice(data.price, data.discount)}<u>đ</u>
                 </p>
                 <span className="productList__item__about__discount">
                     <img

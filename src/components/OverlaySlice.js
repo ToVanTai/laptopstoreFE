@@ -1,3 +1,6 @@
+/**
+ * Quản lý trạng thái đóng, mở sideBar
+ */
 import {OPEN_OVERLAY, CLOSE_OVERLAY} from "../redux/constants"
 import { createSlice } from "@reduxjs/toolkit"
 const initState = {

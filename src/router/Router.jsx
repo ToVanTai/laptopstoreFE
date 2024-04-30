@@ -123,7 +123,7 @@ function Router() {
                         }
                     ></Route>
                 </Route>
-                {/* for admin */}
+                {/* for admin: mới làm ở mô hình mvc */}
                 <Route
                     path="admin"
                     element={

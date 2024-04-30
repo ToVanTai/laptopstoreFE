@@ -1,3 +1,4 @@
+/*flex và responsive*/
 @use "./variables" as *;
 @mixin flex($justityContent,$alignItems) {
     display: flex;

@@ -5,11 +5,12 @@
     &__item{
         text-decoration: none;
         width: $userSidebarItemWidth;
-        @include mobile{
-            width: unset;
+        height: $userSidebarItemHeight;
+        @include smallDevice{
+            height: $navbar-height;
             padding: 0px 8px;
         }
-        height: $userSidebarItemHeight;
+        
         @include flex(center, center);
         border-right: 1px solid $border-color;
         background-color: $background-color;
@@ -24,7 +25,7 @@
         &__title{
             font-size: 1.2rem;
             word-spacing: -1.5px;
-            @include mobile{
+            @include smallDevice{
                 text-align: center;
             }
         }
@@ -48,15 +49,7 @@
             color: $color-disable;
         }
     }
-    @include tablet{
-        position: fixed;
-        z-index: 97;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        @include flex(space-between,center);
-    }
-    @include mobile{
+    @include smallDevice{
         position: fixed;
         z-index: 97;
         bottom: 0;
