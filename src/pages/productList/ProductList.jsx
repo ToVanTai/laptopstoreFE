@@ -7,6 +7,7 @@ import { baseUrlApi, baseUrlImg } from "../../configs/configs";
 import ProductItem from "./ProductItem";
 import Pagination from "@mui/material/Pagination";
 import ProductsHeader from "./ProductsHeader"
+import {getOptionsv2, getOptions} from '../../axios/baseRequest';
 const ProductList = () => {
     /**generate đường dẫn url */
     let generateUrlParams = (params) => {
@@ -82,10 +83,7 @@ const ProductList = () => {
         /**
          * gọi api để lấy danh sách product khi thay đổi số bản ghi / trang....
          */
-        fetch(`${baseUrlApi}products.php${generateUrlParams(params)}`, {
-            method: "GET",
-            credentials: "include",
-        }).then((res) => {
+        fetch(`${baseUrlApi}products.php${generateUrlParams(params)}`, getOptions('GET')).then((res) => {
             if (res.status === 200 || res.status === 201) {
                 res.json().then((res) => {
                     setProductsData(res);

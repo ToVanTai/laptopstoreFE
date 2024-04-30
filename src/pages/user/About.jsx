@@ -2,9 +2,10 @@ import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getRoleId } from "../../redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { baseUrlApi, baseUrlImg, nameReg, phoneNumberReg, emailReg  } from "../../configs/configs";
+import { baseUrlApi, baseUrlImg, nameReg, phoneNumberReg, emailReg } from "../../configs/configs";
 import { anonymousIcon } from "../../access/data/data";
-import {useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
+import {getOptionsv2, getOptions} from '../../axios/baseRequest';
 const About = () => {
     let navigate = useNavigate();
     let roleId = useSelector(getRoleId);
@@ -14,35 +15,29 @@ const About = () => {
         }
     });
 
-    const {register, formState: {errors}, handleSubmit} = useForm()
-    const handleChangeAbout = ()=>{
+    const { register, formState: { errors }, handleSubmit } = useForm()
+    const handleChangeAbout = () => {
         let formData = new FormData(changeAboutForm.current)
-        fetch(`${baseUrlApi}usernew.php`,{
-            method: "POST",
-            credentials: "include",
-            body: formData
-        }).then((res)=>{
-            if(res.status===201||res.status===200){
-                res.text().then(res=>{
+        fetch(`${baseUrlApi}usernew.php`, getOptionsv2("POST",formData)).then((res) => {
+            if (res.status === 201 || res.status === 200) {
+                res.text().then(res => {
                     alert(res)
                     setIsShowAbout(true)
                 })
-            }else{
-                res.text().then(res=>{
+            } else {
+                res.text().then(res => {
                     alert(res)
                 })
             }
-        }).catch(err=>alert("Có lỗi xảy ra!"))
+        }).catch(err => alert("Có lỗi xảy ra!"))
     }
     let changeAboutForm = useRef(null)
     const [isShowAbout, setIsShowAbout] = useState(true);
     const [dataUser, setDataUser] = useState(null);
     useLayoutEffect(() => {
         if (roleId !== null) {
-            fetch(`${baseUrlApi}usernew.php`, {
-                method: "GET",
-                credentials: "include",
-            }).then((res) => {
+            fetch(`${baseUrlApi}usernew.php`, getOptions("GET"))
+            .then((res) => {
                 if (res.status === 200 || res.status === 201) {
                     res.json().then((res) => setDataUser(res));
                 }
@@ -99,54 +94,54 @@ const About = () => {
         }
     };
     let showActionChangeTable = (dataUser) => {
-        if (!isShowAbout && dataUser!==null) {
+        if (!isShowAbout && dataUser !== null) {
             return (//name, phone_number, address, email,avatar
                 <>
                     <form className="user__form" ref={changeAboutForm} onSubmit={handleSubmit(handleChangeAbout)}>
                         <div className="user__input__field">
-                            <input  type="text" {...register("name",{
+                            <input type="text" {...register("name", {
                                 required: "Không được bỏ trống!",
-                                minLength:{
+                                minLength: {
                                     value: 5,
                                     message: "Dài tối thiểu 5 ký tự"
                                 },
-                                maxLength:{
+                                maxLength: {
                                     value: 50,
                                     message: "Dài tối đa 50 ký tự"
                                 },
-                                pattern:{
+                                pattern: {
                                     value: nameReg,
-                                    message:"Tên không hợp lệ!"
+                                    message: "Tên không hợp lệ!"
                                 }
                             })} className={errors.name ? "user__input show" : "user__input"} placeholder="Nhập họ tên" defaultValue={dataUser.name} />
                             <span className="user__input__field__icon"><i className='bx bx-user'></i></span>
-                            <span className={errors.name ? "user__input__field__error show" : "user__input__field__error"}>{errors.name?errors.name.message:""}</span>
+                            <span className={errors.name ? "user__input__field__error show" : "user__input__field__error"}>{errors.name ? errors.name.message : ""}</span>
                         </div>
                         <div className="user__input__field">
-                            <input type="tel" {...register("phone_number",{
+                            <input type="tel" {...register("phone_number", {
                                 required: "Không được bỏ trống!",
-                                minLength:{
+                                minLength: {
                                     value: 8,
                                     message: "Dài tối thiểu 8 ký tự"
                                 },
-                                maxLength:{
+                                maxLength: {
                                     value: 12,
                                     message: "Dài tối đa 12 ký tự"
                                 },
-                                pattern:{
+                                pattern: {
                                     value: phoneNumberReg,
-                                    message:"Số điện thoại không hợp lệ!"
+                                    message: "Số điện thoại không hợp lệ!"
                                 }
-                            })}  className={errors.phone_number?"user__input show":"user__input"} placeholder="Nhập số điện thoại nhận hàng" defaultValue={dataUser.phone_number} />
+                            })} className={errors.phone_number ? "user__input show" : "user__input"} placeholder="Nhập số điện thoại nhận hàng" defaultValue={dataUser.phone_number} />
                             <span className="user__input__field__icon"><i className='bx bx-phone'></i></span>
-                            <span className={errors.phone_number?"user__input__field__error show":"user__input__field__error"}>{errors.phone_number?errors.phone_number.message:''}</span>
+                            <span className={errors.phone_number ? "user__input__field__error show" : "user__input__field__error"}>{errors.phone_number ? errors.phone_number.message : ''}</span>
                         </div>
                         <div className="user__input__field">
-                            <input type="text" {...register("address",{
+                            <input type="text" {...register("address", {
                                 required: "Không được bỏ trống!"
-                            })} className={errors.address?"user__input show":"user__input"} placeholder="Nhập địa chỉ nhận hàng" defaultValue={dataUser.address} />
+                            })} className={errors.address ? "user__input show" : "user__input"} placeholder="Nhập địa chỉ nhận hàng" defaultValue={dataUser.address} />
                             <span className="user__input__field__icon"><i className='bx bxs-edit-location'></i></span>
-                            <span className={errors.address?"user__input__field__error show":"user__input__field__error"}>{errors.address?errors.address.message:''}</span>
+                            <span className={errors.address ? "user__input__field__error show" : "user__input__field__error"}>{errors.address ? errors.address.message : ''}</span>
                         </div>
                         <div className="user__input__field">
                             <input type="file" name="avatar" className="user__input" placeholder="Ảnh đại diện" />
@@ -166,18 +161,18 @@ const About = () => {
                         </div> */}
                         <input type="hidden" name="crud_req" value="update" />
                         <div className="user__about__buttons">
-                        <button className="user__btn__action small active" type="submit">
-                            Lưu thay đổi
-                        </button>
-                        <div
-                            className="user__btn__action small active"
-                            onClick={() => setIsShowAbout(true)}
-                        >
-                            Hủy
+                            <button className="user__btn__action small active" type="submit">
+                                Lưu thay đổi
+                            </button>
+                            <div
+                                className="user__btn__action small active"
+                                onClick={() => setIsShowAbout(true)}
+                            >
+                                Hủy
+                            </div>
                         </div>
-                    </div>
                     </form>
-                    
+
                 </>
             );
         }

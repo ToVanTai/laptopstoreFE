@@ -5,7 +5,7 @@ import "../../css/pages/product/product.css";
 import { baseUrlApi } from "../../configs/configs";
 import { baseUrlImg } from "../../configs/configs";
 import {addToCart} from "../user/UserSlice"
-
+import {getOptionsv2, getOptions} from '../../axios/baseRequest';
 import {
     formatString,
     numberWithComas,
@@ -19,10 +19,7 @@ const ProductDetail = () => {
     const [productData, setProductData] = useState();
     const [productSelected, setProductSelected] = useState();
     useEffect(() => {
-        fetch(`${baseUrlApi}products.php?id=${productId}`, {
-            method: "GET",
-            credentials: "include",
-        }).then((res) => {
+        fetch(`${baseUrlApi}products.php?id=${productId}`, getOptions('GET')).then((res) => {
             if (res.status === 200 || res.status === 201) {
                 res.json().then((res) => {
                     setProductData(res);

@@ -5,7 +5,6 @@ import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
 import { useDispatch, useSelector } from "react-redux";
 import {getUserDataAfterLoged} from "./UserSlice"
 import {getRoleId} from "../../redux/selectors"
-
 const Login = () => {
     let navigate = useNavigate()
     let roleId = useSelector(getRoleId) 
@@ -22,16 +21,15 @@ const Login = () => {
         let formData = new FormData(loginForm.current)
         fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
-            credentials: 'include',
             body: formData
         }).then(res=>{
-            if(res.status===200||res.status===201){
+            if(res.status===200){
                 res.json().then(res=>{
-                    let {AccessToken,RefreshToken,RoleId,UserId} = res;
-                    if(Number(RoleId)===2){
+                    let {role_id} = res;
+                    if(Number(role_id)===2){
                         alert("Website xây dựng chức năng cho admin😪")
-                    }else if(Number(RoleId)===1){
-                        dispatch(getUserDataAfterLoged(`${baseUrlApi}checklogin.php`))
+                    }else if(Number(role_id)===1){
+                        dispatch(getUserDataAfterLoged(res))
                     }
                 })
             }else{
