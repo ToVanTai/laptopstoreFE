@@ -19,11 +19,10 @@ const Register = () => {
         let formData = new FormData(loginForm.current)
         fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
-            credentials: 'include',
             body: formData
         }).then(res=>{
             if(res.status===200||res.status===201){
-                //success redirect login form.
+                alert("Yêu cầu đăng ký tài khoản đã được gủi về email của bạn. Bạn vui lòng kiểm tra email trong vòng 5 phút!");
                 navigate("../login")
             }else{//failed
                 res.text().then(res=>{
@@ -65,7 +64,7 @@ const Register = () => {
                         className={
                             errors.account ? "user__input show" : "user__input"
                         }
-                        placeholder="Enter your account"
+                        placeholder="Email của bạn"
                         id=""
                     />
                     <span className="user__input__field__icon">
@@ -103,7 +102,7 @@ const Register = () => {
                         className={
                             errors.password ? "user__input show" : "user__input"
                         }
-                        placeholder="Enter your password"
+                        placeholder="Mật khẩu của bạn"
                         id=""
                     />
                     <span className="user__input__field__icon">
