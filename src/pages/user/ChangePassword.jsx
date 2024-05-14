@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import {useForm} from "react-hook-form"
 import {Link,useNavigate} from "react-router-dom"
 import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
@@ -15,24 +15,27 @@ const ChangePassword = () => {
         navigate('../login')
     }
     })
-    
+    const [isChangedPassword, setIsChangedPassword] = useState(false)//chuỗi tìm kiếm
     const {register, formState: {errors}, handleSubmit} = useForm()
     const dispatch = useDispatch()
     const handleChangePassword = ()=>{
-        let formData = new FormData(registerForm.current)
-        fetch(`${baseUrlApi}usernew.php`,getOptionsv2('POST',formData)).then((res)=>{
-            if(res.status===200 || res.status===201){
-                res.text().then(res=>{
-                    alert(res)
-                    dispatch(userSlice.actions[RESET_USER]())
-                    //success
-                })
-            }else{
-                res.text().then(res=>{
-                    alert(res)
-                })
-            }
-        })
+        if(!isChangedPassword){
+            let formData = new FormData(registerForm.current)
+            fetch(`${baseUrlApi}usernew.php`,getOptionsv2('POST',formData)).then((res)=>{
+                if(res.status===200 || res.status===201){
+                    res.text().then(res=>{
+                        alert('Chúng tôi đã gửi yêu cầu xác nhận đổi mật khẩu vào email của bạn!')
+                        setIsChangedPassword(true);
+                        // dispatch(userSlice.actions[RESET_USER]())
+                        //success
+                    })
+                }else{
+                    res.text().then(res=>{
+                        alert(res)
+                    })
+                }
+            })
+        }
     }
     let registerForm = useRef(null)
     return <div className="user__changePassword__container">
@@ -84,10 +87,10 @@ const ChangePassword = () => {
                     required:"Không được bỏ trống!",
                     minLength:{
                         value: 5,
-                        message: "Dài tối thiểu 15 ký tự"
+                        message: "Dài tối thiểu 5 ký tự"
                     },
                     maxLength:{
-                        value: 18,
+                        value: 20,
                         message: "Dài tối đa 20 ký tự"
                     },
                     pattern: {
