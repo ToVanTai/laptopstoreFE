@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import {useForm} from "react-hook-form"
 import {Link,useNavigate} from "react-router-dom"
 import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
@@ -7,6 +7,8 @@ import userSlice from "./UserSlice"
 import { RESET_USER } from '../../redux/constants'
 import {useDispatch , useSelector } from "react-redux";
 import {getOptionsv2, getOptions} from '../../axios/baseRequest';
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const ChangePassword = () => {
     let navigate = useNavigate()
     let roleId = useSelector(getRoleId)
@@ -15,24 +17,30 @@ const ChangePassword = () => {
         navigate('../login')
     }
     })
-    
+    const [isChangedPassword, setIsChangedPassword] = useState(false)//chuỗi tìm kiếm
     const {register, formState: {errors}, handleSubmit} = useForm()
     const dispatch = useDispatch()
     const handleChangePassword = ()=>{
-        let formData = new FormData(registerForm.current)
-        fetch(`${baseUrlApi}usernew.php`,getOptionsv2('POST',formData)).then((res)=>{
-            if(res.status===200 || res.status===201){
-                res.text().then(res=>{
-                    alert(res)
-                    dispatch(userSlice.actions[RESET_USER]())
-                    //success
-                })
-            }else{
-                res.text().then(res=>{
-                    alert(res)
-                })
-            }
-        })
+        if(!isChangedPassword){
+            let formData = new FormData(registerForm.current);
+            loading();
+            fetch(`${baseUrlApi}usernew.php`,getOptionsv2('POST',formData)).then((res)=>{
+                if(res.status===200 || res.status===201){
+                    res.text().then(res=>{
+                        toast.success('Chúng tôi đã gửi yêu cầu xác nhận đổi mật khẩu vào email của bạn!')
+                        setIsChangedPassword(true);
+                        unLoading();
+                        // dispatch(userSlice.actions[RESET_USER]())
+                        //success
+                    })
+                }else{
+                    res.text().then(res=>{
+                        toast.success(res)
+                        unLoading();
+                    })
+                }
+            })
+        }
     }
     let registerForm = useRef(null)
     return <div className="user__changePassword__container">
@@ -84,10 +92,10 @@ const ChangePassword = () => {
                     required:"Không được bỏ trống!",
                     minLength:{
                         value: 5,
-                        message: "Dài tối thiểu 15 ký tự"
+                        message: "Dài tối thiểu 5 ký tự"
                     },
                     maxLength:{
-                        value: 18,
+                        value: 20,
                         message: "Dài tối đa 20 ký tự"
                     },
                     pattern: {
@@ -109,6 +117,15 @@ const ChangePassword = () => {
                 <Link to="../need-help">Cần giúp đỡ?</Link>
             </div>
         </div>
+        <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
     </div>;
 }
 

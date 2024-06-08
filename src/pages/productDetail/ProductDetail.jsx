@@ -6,6 +6,8 @@ import { baseUrlApi } from "../../configs/configs";
 import { baseUrlImg } from "../../configs/configs";
 import {addToCart} from "../user/UserSlice"
 import {getOptionsv2, getOptions} from '../../axios/baseRequest';
+import {loading, unLoading} from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 import {
     formatString,
     numberWithComas,
@@ -19,14 +21,22 @@ const ProductDetail = () => {
     const [productData, setProductData] = useState();
     const [productSelected, setProductSelected] = useState();
     useEffect(() => {
-        fetch(`${baseUrlApi}products.php?id=${productId}`, getOptions('GET')).then((res) => {
-            if (res.status === 200 || res.status === 201) {
-                res.json().then((res) => {
-                    setProductData(res);
-                    setProductSelected(res.capacities[0]);
+        loading();
+        try {
+            setTimeout(()=>{
+                fetch(`${baseUrlApi}products.php?id=${productId}`, getOptions('GET')).then((res) => {
+                    if (res.status === 200 || res.status === 201) {
+                        res.json().then((res) => {
+                            setProductData(res);
+                            setProductSelected(res.capacities[0]);
+                            unLoading();
+                        });
+                    }
                 });
-            }
-        });
+            }, 200)
+        } catch (error) {
+            unLoading();
+        }
     }, []);
     let sortListPrice =
         productData &&
@@ -42,8 +52,9 @@ const ProductDetail = () => {
     let handleChangeCapacitySelected = (capacity) => {
         setProductSelected(capacity);
     };
-    let handleAddToCart = () => {
+    let handleAddToCart = async () => {
         if (Number(productSelected.quantity) > 1) {
+            loading();
             let urlParams = `?product_id=${productSelected["product_id"]}&capacity_id=${productSelected["id"]}&quantity=1`;
             let dataBody = {
                 discount: productData.discount,
@@ -60,9 +71,10 @@ const ProductDetail = () => {
                 quantityRemain: Number(productSelected.quantity) - 1,
             };
             let url =`${baseUrlApi}carts.php${urlParams}`;
-        dispatch(addToCart({url, dataBody}));
+            await dispatch(addToCart({url, dataBody}));
+            unLoading();
         } else {
-            alert("Số lượng không đủ!");
+            toast.error("Số lượng không đủ!");
         }
     };
     return (
@@ -208,6 +220,15 @@ const ProductDetail = () => {
                     <div className="productAbout__QA">Hỏi đáp</div>
                     <div className="productAbout__offer">Dành cho bạn</div>
                 </div>
+                <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
             </>
         )
     );

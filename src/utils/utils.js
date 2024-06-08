@@ -36,4 +36,12 @@ let generateOldPrice = function(price, discount){//return number
 let generateQuantityCart = function(carts){
     return carts.reduce((pev, cart)=>pev+=Number(cart.quantity),0)
 }
-export {httpGetAsync, numberWithComas, formatString, generateNewPrice, generateOldPrice, generateQuantityCart}
+let loading = function(){
+    let overlay = document.getElementById("spin-overlay");
+    overlay.classList.remove("hide")
+};
+let unLoading = function(){
+    let overlay = document.getElementById("spin-overlay");
+    overlay.classList.add("hide")
+};
+export {httpGetAsync, numberWithComas, formatString, generateNewPrice, generateOldPrice, generateQuantityCart, loading, unLoading}

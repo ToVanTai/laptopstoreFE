@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { baseUrlApi, baseUrlImg, nameReg, phoneNumberReg, emailReg } from "../../configs/configs";
 import { anonymousIcon } from "../../access/data/data";
 import { useForm } from "react-hook-form";
-import {getOptionsv2, getOptions} from '../../axios/baseRequest';
+import { getOptionsv2, getOptions } from '../../axios/baseRequest';
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const About = () => {
     let navigate = useNavigate();
     let roleId = useSelector(getRoleId);
@@ -17,31 +19,43 @@ const About = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm()
     const handleChangeAbout = () => {
+        loading();
         let formData = new FormData(changeAboutForm.current)
-        fetch(`${baseUrlApi}usernew.php`, getOptionsv2("POST",formData)).then((res) => {
+        fetch(`${baseUrlApi}usernew.php`, getOptionsv2("POST", formData)).then((res) => {
             if (res.status === 201 || res.status === 200) {
                 res.text().then(res => {
-                    alert(res)
-                    setIsShowAbout(true)
+                    toast.success(res);
+                    setIsShowAbout(true);
+                    unLoading();
                 })
             } else {
                 res.text().then(res => {
-                    alert(res)
+                    unLoading();
+                    toast.success(res);
                 })
             }
-        }).catch(err => alert("Có lỗi xảy ra!"))
+        }).catch(err => {
+            unLoading();
+            toast.error("Đã có lỗi xảy ra");
+        })
     }
     let changeAboutForm = useRef(null)
     const [isShowAbout, setIsShowAbout] = useState(true);
     const [dataUser, setDataUser] = useState(null);
     useLayoutEffect(() => {
         if (roleId !== null) {
-            fetch(`${baseUrlApi}usernew.php`, getOptions("GET"))
-            .then((res) => {
-                if (res.status === 200 || res.status === 201) {
-                    res.json().then((res) => setDataUser(res));
-                }
-            });
+            loading();
+            try {
+                fetch(`${baseUrlApi}usernew.php`, getOptions("GET"))
+                    .then((res) => {
+                        if (res.status === 200 || res.status === 201) {
+                            res.json().then((res) => setDataUser(res));
+                            unLoading();
+                        }
+                    });
+            } catch (error) {
+                unLoading();
+            }
         }
     }, [isShowAbout]);
     let showTable = (data) => {
@@ -187,6 +201,15 @@ const About = () => {
             {showTable(dataUser)}
 
             {showActionChangeTable(dataUser)}
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
         </div>
     );
 };

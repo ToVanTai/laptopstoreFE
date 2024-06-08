@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { baseUrlApi, accountReg, passwordReg } from "../../configs/configs";
 import {getRoleId} from "../../redux/selectors"
 import {useDispatch , useSelector } from "react-redux";
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const Register = () => {
     let navigate = useNavigate()
     let roleId = useSelector(getRoleId)
@@ -16,21 +18,28 @@ const Register = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
     
     const handleLogin = ()=>{
-        let formData = new FormData(loginForm.current)
+        let formData = new FormData(loginForm.current);
+        loading();
         fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
-            credentials: 'include',
             body: formData
         }).then(res=>{
             if(res.status===200||res.status===201){
-                //success redirect login form.
-                navigate("../login")
+                unLoading();
+                toast.success("Yêu cầu đăng ký tài khoản đã được gủi về email của bạn. Bạn vui lòng kiểm tra email trong vòng 5 phút!");
+                setTimeout(() => {
+                    navigate("../login")
+                }, 2000);
             }else{//failed
+                unLoading();
                 res.text().then(res=>{
-                    alert(res);
+                    toast.error(res);
                 })
             }
+        }).catch(err=>{
+            unLoading();
         })
+        
     }
     let loginForm = useRef(null)
     //đăng nhập thành công->call api lấy thông tin user đã đăng nhập rồi lưu vào store
@@ -65,7 +74,7 @@ const Register = () => {
                         className={
                             errors.account ? "user__input show" : "user__input"
                         }
-                        placeholder="Enter your account"
+                        placeholder="Email của bạn"
                         id=""
                     />
                     <span className="user__input__field__icon">
@@ -103,7 +112,7 @@ const Register = () => {
                         className={
                             errors.password ? "user__input show" : "user__input"
                         }
-                        placeholder="Enter your password"
+                        placeholder="Mật khẩu của bạn"
                         id=""
                     />
                     <span className="user__input__field__icon">
@@ -139,6 +148,15 @@ const Register = () => {
                     <Link to="../need-help">Cần giúp đỡ?</Link>
                 </div>
             </div>
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
         </div>
     );
 };

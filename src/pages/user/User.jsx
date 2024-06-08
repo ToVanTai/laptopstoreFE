@@ -7,11 +7,14 @@ import { useSelector, useDispatch } from "react-redux";
 import {getRoleId}from "../../redux/selectors"
 import {setUserDataAfterLogout} from "./UserSlice"
 import {baseUrlApi} from "../../configs/configs"
+import { loading, unLoading } from "../..//utils/utils";
 const User = () => {
     let roleId = useSelector(getRoleId)
     const dispatch = useDispatch()
-    let handleLogout = ()=>{
-        dispatch(setUserDataAfterLogout(`${baseUrlApi}usernew.php`))
+    let handleLogout = async ()=>{
+        loading();
+        await dispatch(setUserDataAfterLogout(`${baseUrlApi}usernew.php`))
+        unLoading();
     }
     let renderNavLinks = (roleId)=>{
         if(roleId===null){
