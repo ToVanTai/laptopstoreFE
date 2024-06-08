@@ -24,8 +24,9 @@ const Purchased = () => {
     },[])
     return (
         <div className="user__purchased__container">
-            <div className="user__heading">Thông tin đặt hàng</div>
-            {orders.map(order=><PurchasedItem key={order.orderId} data={order}/>)}
+            <div className="user_purchser_item_list">
+                {orders.map(order=><PurchasedItem key={order.orderId} data={order}/>)}
+            </div>
         </div>
     );
 };

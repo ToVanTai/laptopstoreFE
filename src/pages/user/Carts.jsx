@@ -155,7 +155,7 @@ const Carts = () => {
     }
     return (
         <>
-            <div>
+            <div className="cartUser-list">
                 {/* <div className="user__heading">Giỏ hàng</div> */}
                 <div className="userCarts">
                     <div className="userCarts__header">
