@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { baseUrlApi, accountReg, passwordReg } from "../../configs/configs";
 import {getRoleId} from "../../redux/selectors"
 import {useDispatch , useSelector } from "react-redux";
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const ResetPassword = () => {
 	let navigate = useNavigate()
     let roleId = useSelector(getRoleId)
@@ -16,20 +18,22 @@ const ResetPassword = () => {
     const {register, formState: {errors}, handleSubmit} = useForm()
     
     const handleResetPassword = ()=>{
-        let formData = new FormData(loginForm.current)
+        let formData = new FormData(loginForm.current);
+        loading();
         fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
             body: formData
         }).then(res=>{
             if(res.status===200||res.status===201){
-                alert("Yêu cầu lấy lại mật khẩu đã được gủi về email của bạn. Bạn vui lòng kiểm tra email trong vòng 5 phút!");
+                toast.success("Yêu cầu lấy lại mật khẩu đã được gủi về email của bạn. Bạn vui lòng kiểm tra email trong vòng 5 phút!");
                 navigate("../login")
             }else{//failed
                 res.text().then(res=>{
-                    alert(res);
+                    toast.error(res);
                 })
             }
-        })
+        });
+        unLoading();
     }
     let loginForm = useRef(null)
     //đăng nhập thành công->call api lấy thông tin user đã đăng nhập rồi lưu vào store
@@ -135,6 +139,15 @@ const ResetPassword = () => {
                     <Link to="../need-help">Cần giúp đỡ?</Link>
                 </div>
             </div>
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
         </div>
     );
 }

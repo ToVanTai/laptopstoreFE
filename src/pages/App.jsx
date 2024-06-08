@@ -49,9 +49,15 @@ const App = () => {
                     dispatch(getBrandsDataOnFirstLoad(`${baseUrlApi}brands.php`)),
                 ]);
                 unLoading();
-            }catch(ex){}
+            }catch(ex){
+                unLoading();
+            }
         };
-        await getDataOnFistLoad();
+        try {
+            await getDataOnFistLoad();
+        } catch (error) {
+            unLoading();
+        }
     }, []);
     return (
         <div>
