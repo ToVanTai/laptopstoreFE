@@ -5,6 +5,8 @@ import {baseUrlApi,accountReg, passwordReg} from "../../configs/configs"
 import { useDispatch, useSelector } from "react-redux";
 import {getUserDataAfterLoged} from "./UserSlice"
 import {getRoleId} from "../../redux/selectors"
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const Login = () => {
     let navigate = useNavigate()
     let roleId = useSelector(getRoleId) 
@@ -18,7 +20,8 @@ const Login = () => {
     const dispatch = useDispatch()
     const handleLogin = ()=>{
         
-        let formData = new FormData(loginForm.current)
+        let formData = new FormData(loginForm.current);
+        loading();
         fetch(`${baseUrlApi}usernew.php`,{
             method:"POST",
             body: formData
@@ -27,14 +30,18 @@ const Login = () => {
                 res.json().then(res=>{
                     let {role_id} = res;
                     if(Number(role_id)===2){
-                        alert("Website xây dựng chức năng cho admin😪")
+                        toast.error("Website xây dựng chức năng cho admin😪")
                     }else if(Number(role_id)===1){
+                        unLoading();
                         dispatch(getUserDataAfterLoged(res))
                     }
                 })
             }else{
-                alert("Tên tài khoản hoặc mật khẩu không chính xác!")
+                unLoading();
+                toast.error("Tên tài khoản hoặc mật khẩu không chính xác!")
             }
+        }).catch(err=>{
+            unLoading();
         })
     }
     let loginForm = useRef(null)
@@ -95,6 +102,15 @@ const Login = () => {
                 <Link to="../need-help">Cần giúp đỡ?</Link>
             </div>
         </div>
+        <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
     </div>;
 };
 
