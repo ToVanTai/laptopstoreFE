@@ -8,6 +8,7 @@ import ProductItem from "./ProductItem";
 import Pagination from "@mui/material/Pagination";
 import ProductsHeader from "./ProductsHeader"
 import {getOptionsv2, getOptions} from '../../axios/baseRequest';
+import {loading, unLoading} from "../..//utils/utils";
 const ProductList = () => {
     /**generate đường dẫn url */
     let generateUrlParams = (params) => {
@@ -80,16 +81,22 @@ const ProductList = () => {
         }
     });
     useEffect(() => {
-        /**
-         * gọi api để lấy danh sách product khi thay đổi số bản ghi / trang....
-         */
-        fetch(`${baseUrlApi}products.php${generateUrlParams(params)}`, getOptions('GET')).then((res) => {
-            if (res.status === 200 || res.status === 201) {
-                res.json().then((res) => {
-                    setProductsData(res);
-                });
-            }
-        });
+        loading();
+        try {
+            /**
+             * gọi api để lấy danh sách product khi thay đổi số bản ghi / trang....
+             */
+            fetch(`${baseUrlApi}products.php${generateUrlParams(params)}`, getOptions('GET')).then((res) => {
+                if (res.status === 200 || res.status === 201) {
+                    res.json().then((res) => {
+                        setProductsData(res);
+                        unLoading();
+                    });
+                }
+            });
+        } catch (error) {
+            unLoading();
+        }
     }, [page, limit, categoryName, searchName]);
     useEffect(()=>{//cuộn lên đầu trang do thằng này nó không có slide hay navbar
         window.scrollTo(0,0)

@@ -48,7 +48,6 @@ let userSlice = createSlice({
             })
             .addCase(addToCart.fulfilled, (state, action)=>{
                 if(action.payload!==null){
-                    alert("Thêm thành công!")
                     state.carts = action.payload
                 }
             })

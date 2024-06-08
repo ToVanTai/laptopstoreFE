@@ -7,7 +7,9 @@ import { baseUrlApi } from "../../configs/configs";
 import { Link } from "react-router-dom";
 import { getOptionsv2, getOptions } from '../../axios/baseRequest'
 import Cart from "./Cart";
-import { numberWithComas } from "../../utils/utils"
+import { numberWithComas } from "../../utils/utils";
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const Carts = () => {
     const [cartsSelected, setCartsSelected] = useState([])
     let navigate = useNavigate();
@@ -27,13 +29,15 @@ const Carts = () => {
         return indexFind === -1 ? result : result + (Number(cart.quantity) * Number(cart.detail.newPrice))
     }, 0)
     const dispatch = useDispatch()
-    const handleDeleteCart = (productId, capacityId) => {
+    const handleDeleteCart = async (productId, capacityId) => {
         if (window.confirm("Bạn có muấn thực hiện chức năng xóa!")) {
-            let url = `${baseUrlApi}carts.php?crud_req=updateCarts`
-            dispatch(deleteCart({ productId, capacityId, carts, url }))
+            let url = `${baseUrlApi}carts.php?crud_req=updateCarts`;
+            loading();
+            await dispatch(deleteCart({ productId, capacityId, carts, url }))
+            unLoading();
         }
     }
-    const handleChangeQuantity = (productId, capacityId, isIncrease = true) => {
+    const handleChangeQuantity = async (productId, capacityId, isIncrease = true) => {
         let indexChange = carts.findIndex(cart => Number(cart.productId) === Number(productId) && Number(cart.capacityId) === Number(capacityId))
         let isAllowCallApi = true;
         if (isIncrease) {
@@ -47,7 +51,9 @@ const Carts = () => {
         }
         if (isAllowCallApi) {
             let url = `${baseUrlApi}carts.php?crud_req=updateCarts`
-            dispatch(changeQuantitiesCart({ productId, capacityId, carts, url, isIncrease }))
+            loading();
+            await dispatch(changeQuantitiesCart({ productId, capacityId, carts, url, isIncrease }))
+            unLoading();
         }
     }
     const handleToggleStatus = (productId, capacityId) => {
@@ -94,12 +100,13 @@ const Carts = () => {
     }
     const handleBuy = () => {
         if (cartsSelected.length === 0) {
-            alert("Vui lòng chọn sản phẩm!")
+            toast.error("Vui lòng chọn sản phẩm!");
         } else {
+            loading();
             fetch(`${baseUrlApi}usernew.php`, getOptions("GET"))
                 .then(res => res.json().then(res => {
                     if (res.name === null || res.phone_number === null || res.account === null || res.address === null) {
-                        alert("Vui lòng cập nhật thông tin cá nhân!");
+                        toast.error("Vui lòng cập nhật thông tin cá nhân!");
                     } else {
                         let cartsBuy = carts.reduce((result, cart) => {
                             let indexFind = cartsSelected.findIndex(item => Number(cart.productId) === Number(item.productId) && Number(cart.capacityId) === Number(item.capacityId))
@@ -119,7 +126,7 @@ const Carts = () => {
                                     )
                                         .then(res => {
                                             if (res.status === 200 || res.status === 201) {
-                                                alert("Đặt hàng thành công")
+                                                toast.success("Đặt hàng thành công")
                                                 //call api đẩy cartRemain to global state
                                                 let url = `${baseUrlApi}carts.php?crud_req=updateCarts`
                                                 let dataBody = cartsRemain
@@ -128,15 +135,16 @@ const Carts = () => {
                                                 }
                                                 dispatch(updateCart({ url, dataBody, redirectPurchasedPage }))
                                             } else {
-                                                alert("Lỗi hệ thống")
+                                                toast.error("Lỗi hệ thống")
                                             }
                                         })
                                 } else {
-                                    alert("Lỗi hệ thống!")
+                                    toast.error("Lỗi hệ thống!")
                                 }
                             })
                     }
-                }))
+                }));
+            unLoading();
 
             //b0: call api xem thông tin user api/usernew.php// name, phonenumber, address, email->trống=>thông báo
             //B1: đẩy cartsBuy lên session và không làm thay đổi global store.
@@ -194,6 +202,15 @@ const Carts = () => {
                     </div>
                 </div>
             </div>
+            <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
         </>
     );
 };

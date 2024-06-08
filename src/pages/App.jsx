@@ -11,6 +11,7 @@ import { getUserDataOnFirstLoad } from "../pages/user/UserSlice";
 import { getBrandsDataOnFirstLoad } from "../pages/home/brandsSlice";
 import { baseUrlApi } from "../configs/configs";
 import {getOptionsv2, getOptions} from '../axios/baseRequest';
+import {loading, unLoading} from "../utils/utils"
 const App = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -40,12 +41,14 @@ const App = () => {
     useLayoutEffect(async() => {
         const getDataOnFistLoad = async function(){
             try{
+                loading();
                 await Promise.all([
                     /**lấy thông tin giở hàng, role_id để chuyển sang trang admin, thông tin user */
                     dispatch(getUserDataOnFirstLoad(`${baseUrlApi}checklogin.php`)),
                     /**lấy thông tin slide chạy .... */
                     dispatch(getBrandsDataOnFirstLoad(`${baseUrlApi}brands.php`)),
-                ])
+                ]);
+                unLoading();
             }catch(ex){}
         };
         await getDataOnFistLoad();

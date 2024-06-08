@@ -7,6 +7,8 @@ import userSlice from "./UserSlice"
 import { RESET_USER } from '../../redux/constants'
 import {useDispatch , useSelector } from "react-redux";
 import {getOptionsv2, getOptions} from '../../axios/baseRequest';
+import { loading, unLoading } from "../..//utils/utils";
+import { toast, Toaster } from 'react-hot-toast';
 const ChangePassword = () => {
     let navigate = useNavigate()
     let roleId = useSelector(getRoleId)
@@ -20,18 +22,21 @@ const ChangePassword = () => {
     const dispatch = useDispatch()
     const handleChangePassword = ()=>{
         if(!isChangedPassword){
-            let formData = new FormData(registerForm.current)
+            let formData = new FormData(registerForm.current);
+            loading();
             fetch(`${baseUrlApi}usernew.php`,getOptionsv2('POST',formData)).then((res)=>{
                 if(res.status===200 || res.status===201){
                     res.text().then(res=>{
-                        alert('Chúng tôi đã gửi yêu cầu xác nhận đổi mật khẩu vào email của bạn!')
+                        toast.success('Chúng tôi đã gửi yêu cầu xác nhận đổi mật khẩu vào email của bạn!')
                         setIsChangedPassword(true);
+                        unLoading();
                         // dispatch(userSlice.actions[RESET_USER]())
                         //success
                     })
                 }else{
                     res.text().then(res=>{
-                        alert(res)
+                        toast.success(res)
+                        unLoading();
                     })
                 }
             })
@@ -112,6 +117,15 @@ const ChangePassword = () => {
                 <Link to="../need-help">Cần giúp đỡ?</Link>
             </div>
         </div>
+        <Toaster
+                position="top-center"
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        width: '500px'
+                    },
+                }}
+            />
     </div>;
 }
 

@@ -52,11 +52,28 @@ const SideBar = () => {
                     window.scrollTo(0,((document.documentElement.clientWidth - 270) / 2))
                 }
             }
-            setSearchText("")
+            // setSearchText("")
             setIsShowSearchInput(false)
             //chuyển sang trang tìm kiếm sản phẩm => nên vẫn ở searchinput
             navigate("/search-products?search="+searchText.trim())
         }
+    }
+    const handleClearSearchInput = ()=>{
+        if(params["category-name"]||params["search"]){
+            window.scrollTo(0,0)//2 trang này không có slide chạy nên cuộn lên đầu
+        }else{
+            if(document.documentElement.clientWidth<=768){
+                //giao diện mobile thì cuộn lên dưới navbar
+                window.scrollTo(0,(document.documentElement.clientWidth/2)+78)
+            }else{
+                //giao diện bth thì cuộn xuống dưới slide chạy
+                window.scrollTo(0,((document.documentElement.clientWidth - 270) / 2))
+            }
+        }
+        setSearchText("")
+        setIsShowSearchInput(false)
+        //chuyển sang trang tìm kiếm sản phẩm => nên vẫn ở searchinput
+        navigate("/search-products");
     }
     return (
         <>
@@ -128,7 +145,10 @@ const SideBar = () => {
             </div>
             <div className={isShowSearchInput?"searchInput__mobile show":"searchInput__mobile"}>
                 <div className="searchInput__mobile__content">
-                    <input type="text" placeholder="Enter để tìm" onKeyPress={handleSubmitSearchInput} onChange={handleChangeSearchInput} value={searchText}  name="nameProduct"  />
+                    <div className="searchInput__mobile__content_container">
+                        <input type="text" placeholder="Enter để tìm" onKeyPress={handleSubmitSearchInput} onChange={handleChangeSearchInput} value={searchText}  name="nameProduct"  />
+                        <div className="close" onClick={handleClearSearchInput}>x</div>
+                    </div>
                 </div>
             </div>
         </>
