@@ -37,11 +37,18 @@ const App = () => {
     /**
      * gọi 1 lần duy nhất dùng để kiểm tra login, và lấy các slide chạy.....
      */
-    useLayoutEffect(() => {
-        /**lấy thông tin giở hàng, role_id để chuyển sang trang admin, thông tin user */
-        dispatch(getUserDataOnFirstLoad(`${baseUrlApi}checklogin.php`));
-        /**lấy thông tin slide chạy .... */
-        dispatch(getBrandsDataOnFirstLoad(`${baseUrlApi}brands.php`));
+    useLayoutEffect(async() => {
+        const getDataOnFistLoad = async function(){
+            try{
+                await Promise.all([
+                    /**lấy thông tin giở hàng, role_id để chuyển sang trang admin, thông tin user */
+                    dispatch(getUserDataOnFirstLoad(`${baseUrlApi}checklogin.php`)),
+                    /**lấy thông tin slide chạy .... */
+                    dispatch(getBrandsDataOnFirstLoad(`${baseUrlApi}brands.php`)),
+                ])
+            }catch(ex){}
+        };
+        await getDataOnFistLoad();
     }, []);
     return (
         <div>

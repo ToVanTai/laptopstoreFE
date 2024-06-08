@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import "./css/base/grid.css";
 import "./css/base/reset.css";
+import "./css/base/spinder.css";
 import reportWebVitals from './reportWebVitals';
 import "./access/fonts/boxicons-2.0.7/css/boxicons.min.css";
 import { Provider } from 'react-redux';
