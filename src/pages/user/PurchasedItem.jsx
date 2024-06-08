@@ -2,7 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { baseUrlImg } from "../../configs/configs";
 import { numberWithComas } from "../../utils/utils";
-const PurchasedItem = ({ data }) => {
+const PurchasedItem = ({ data, onChangeStatus }) => {
+    let getStatusName = (statusId)=>{
+        let statusIdParse = Number(statusId);
+        if(statusIdParse == 1){
+            return "Hủy đơn hàng"
+        }else if(statusIdParse == 2){
+            return "Đã bị hủy";
+        }else if(statusIdParse == 3){
+            return "Đã hoàn thành";
+        }
+    }
     let totalPrice = data.orderDetails.reduce((current,item)=>{
         return current + Number(item.price)*Number(item.quantity)
     },0)
@@ -49,7 +59,7 @@ const PurchasedItem = ({ data }) => {
                     Tổng tiền: <span>{numberWithComas(totalPrice)} đ</span>
                 </p>
                 <p>
-                    <button onClick={()=>alert("Chức năng chưa có sẵn!")}>Hủy đơn hàng</button>
+                    {Number(data.statusId) == 1 ?  <button onClick={()=>onChangeStatus(data)}>{getStatusName(data.statusId)}</button> : ""}
                 </p>
             </div>
         </div>
