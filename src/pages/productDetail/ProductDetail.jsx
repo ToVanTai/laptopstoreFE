@@ -207,18 +207,27 @@ const ProductDetail = () => {
                     </div>
                 </div>
                 <div className="product__navigate">
-                    <div className="product__navigate__item">Tổng quan</div>
-                    <div className="product__navigate__item active">
+                    <div className="product__navigate__item active">Tổng quan</div>
+                    {/* <div className="product__navigate__item">
                         Đánh giá
                     </div>
                     <div className="product__navigate__item">Hỏi đáp</div>
-                    <div className="product__navigate__item">Dành cho bạn</div>
+                    <div className="product__navigate__item">Dành cho bạn</div> */}
                 </div>
                 <div className="productAbout">
-                    <div className="productAbout__overview">Tổng quan</div>
-                    <div className="productAbout__feedback">Đánh giá</div>
-                    <div className="productAbout__QA">Hỏi đáp</div>
-                    <div className="productAbout__offer">Dành cho bạn</div>
+                    <div className="productAbout__overview">
+                        <li><span>Tên: </span><span>{productData.model}</span> </li>
+                        <li><span>Hãng sản xuất: </span><span>{productData.nameBrand}</span> </li>
+                        <li><span>Màn hình: </span><span>{productData.screen}</span> </li>
+                        <li><span>RAM: </span><span>{productData.RAM}</span> </li>
+                        <li><span>Hardware: </span><span>{productData.hardware}</span> </li>
+                        <li><span>Hệ điều hành: </span><span>{productData.OS}</span> </li>
+                        <li><span>CPU: </span><span>{productData.CPU}</span> </li>
+                        <li><span>VGA: </span><span>{productData.VGA}</span> </li>
+                        <li><span>Bảo hành: </span><span>{productData.warranty}</span> </li>
+                        <li><span>Giảm giá: </span><span>{productData.discount}%</span> </li>
+                        <li><span>Màu: </span><span>{productData.color}</span> </li>
+                    </div>
                 </div>
                 <Toaster
                 position="top-center"
